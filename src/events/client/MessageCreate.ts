@@ -21,7 +21,7 @@ export default class MessageCreate extends Event {
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
         if (message.content.match(mention)) {
             await message.reply({
-                content: `我在此伺服器的前綴是 \`${prefix.prefix}\`\n想瞭解更多請使用 \`${prefix.prefix}help\``,
+                content: `我在此伺服器的前綴是 \`${guild.prefix}\`\n想瞭解更多請使用 \`${guild.prefix}help\``,
             });
             return;
         }

@@ -79,7 +79,7 @@ export default class Load extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: `載入了 \`${playlistData.name}\` 包含 \`${JSON.parse(playlistData.songs).length}\` 首歌曲`,
+                        description: `載入了 \`${playlistData.name}\` 包含 \`${JSON.parse(s.track).length}\` 首歌曲`,
                         color: client.color.main,
                     },
                 ],
