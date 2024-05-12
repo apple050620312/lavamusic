@@ -7,7 +7,7 @@ export default class Speed extends Command {
         super(client, {
             name: 'speed',
             description: {
-                content: 'Sets the speed of the song',
+                content: '設定歌曲的速度',
                 examples: ['speed 1.5'],
                 usage: 'speed <number>',
             },
@@ -30,7 +30,7 @@ export default class Speed extends Command {
             options: [
                 {
                     name: 'speed',
-                    description: 'The speed you want to set',
+                    description: '您要設定的速度',
                     type: ApplicationCommandOptionType.Integer,
                     required: true,
                 },
@@ -45,7 +45,7 @@ export default class Speed extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a valid number',
+                        description: '請提供有效數字',
                         color: client.color.red,
                     },
                 ],
@@ -55,7 +55,7 @@ export default class Speed extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a number between 0.5 and 5',
+                        description: '請提供 0.5 到 5 之間的數字',
                         color: client.color.red,
                     },
                 ],
@@ -66,7 +66,7 @@ export default class Speed extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Speed has been set to ${speed}`,
+                    description: `速度已設定為 ${speed}`,
                     color: client.color.main,
                 },
             ],

@@ -5,7 +5,7 @@ export default class Distorsion extends Command {
         super(client, {
             name: 'distorsion',
             description: {
-                content: 'on/off distorsion filter',
+                content: '開啟/關閉失真濾波器',
                 examples: ['distorsion'],
                 usage: 'distorsion',
             },
@@ -36,7 +36,7 @@ export default class Distorsion extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Distorsion filter has been disabled',
+                        description: '失真濾波器已停用',
                         color: client.color.main,
                     },
                 ],
@@ -56,7 +56,7 @@ export default class Distorsion extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Distorsion filter has been enabled',
+                        description: '失真濾波器已啟用',
                         color: client.color.main,
                     },
                 ],

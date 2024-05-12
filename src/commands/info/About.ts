@@ -7,7 +7,7 @@ export default class About extends Command {
         super(client, {
             name: 'about',
             description: {
-                content: 'Shows information about the bot',
+                content: '顯示有​​關機器人的信息',
                 examples: ['about'],
                 usage: 'about',
             },
@@ -34,21 +34,21 @@ export default class About extends Command {
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
-                .setLabel('Invite Lavamusic')
-                .setStyle(ButtonStyle.Link)
+            .setLabel('邀請機器人')
+            .setStyle(ButtonStyle.Link)
                 .setURL(
-                    `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=8&scope=bot%20applications.commands`
+                    `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=-1&scope=bot%20applications.commands`
                 ),
             new ButtonBuilder()
-                .setLabel('Support Server')
+                .setLabel('Coffee Host')
                 .setStyle(ButtonStyle.Link)
-                .setURL('https://discord.gg/ns8CTk9J3e')
+                .setURL('https://discord.gg/2vA8ms9X7y')
         );
 
         const embed = this.client
             .embed()
             .setAuthor({
-                name: 'LavaMusic',
+                name: '岩漿音樂機器人',
                 iconURL:
                     'https://media.discordapp.net/attachments/876035356460462090/888434725235097610/20210820_124325.png',
             })
@@ -58,23 +58,23 @@ export default class About extends Command {
             .setColor(this.client.color.main)
             .addFields([
                 {
-                    name: 'Creator',
-                    value: '[Blacky#9125](https://github.com/appujet)',
+                    name: '擁有者',
+                    value: '<@523114942434639873>',
                     inline: true,
                 },
                 {
-                    name: 'Repository',
-                    value: '[Here](https://github.com/appujet/lavamusic)',
+                    name: 'Github',
+                    value: '[倉庫](https://github.com/appujet/lavamusic)',
                     inline: true,
                 },
                 {
-                    name: 'Support',
-                    value: '[Here](https://discord.gg/ns8CTk9J3e)',
+                    name: 'Coffee Host',
+                    value: '[加入社群](https://discord.gg/2vA8ms9X7y)',
                     inline: true,
                 },
                 {
                     name: '\u200b',
-                    value: `He really wanted to make his first open source project ever for more coding experience. In this project, he was challenged to make a project with less bugs. Hope you enjoy using LavaMusic!`,
+                    value: `這邊還沒想好要寫什麼`,
                     inline: true,
                 },
             ]);

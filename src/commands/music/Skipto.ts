@@ -5,7 +5,7 @@ export default class Skipto extends Command {
         super(client, {
             name: 'skipto',
             description: {
-                content: 'Skips to a specific song in the queue',
+                content: '跳至隊列中的特定歌曲',
                 examples: ['skipto 3'],
                 usage: 'skipto <number>',
             },
@@ -28,7 +28,7 @@ export default class Skipto extends Command {
             options: [
                 {
                     name: 'number',
-                    description: 'The number of the song you want to skip to',
+                    description: '您要跳到的歌曲編號',
                     type: 4,
                     required: true,
                 },
@@ -43,7 +43,7 @@ export default class Skipto extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
+                        .setDescription('隊列中沒有歌曲。'),
                 ],
             });
         if (isNaN(Number(args[0])))
@@ -51,7 +51,7 @@ export default class Skipto extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('Please provide a valid number.'),
+                        .setDescription('請提供有效的數字。'),
                 ],
             });
         if (Number(args[0]) > player.queue.length)
@@ -59,7 +59,7 @@ export default class Skipto extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('Please provide a valid number.'),
+                        .setDescription('請提供有效的數字。'),
                 ],
             });
         if (Number(args[0]) < 1)
@@ -67,7 +67,7 @@ export default class Skipto extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('Please provide a valid number.'),
+                        .setDescription('請提供有效的數字。'),
                 ],
             });
         player.skip(Number(args[0]));
@@ -76,7 +76,7 @@ export default class Skipto extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Skipped to song number ${args[0]}`),
+                    .setDescription(`跳至歌曲編號 ${args[0]}`),
             ],
         });
     }

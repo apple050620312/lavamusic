@@ -5,7 +5,7 @@ export default class Vibrato extends Command {
         super(client, {
             name: 'vibrato',
             description: {
-                content: 'on/off vibrato filter',
+                content: '開啟/關閉抖音濾波器',
                 examples: ['vibrato'],
                 usage: 'vibrato',
             },
@@ -36,7 +36,7 @@ export default class Vibrato extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Vibrato filter has been disabled',
+                        description: '抖音濾波器已停用',
                         color: client.color.main,
                     },
                 ],
@@ -47,7 +47,7 @@ export default class Vibrato extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Vibrato filter has been enabled',
+                        description: '抖音濾波器已啟用',
                         color: client.color.main,
                     },
                 ],

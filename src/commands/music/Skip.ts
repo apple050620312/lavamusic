@@ -5,7 +5,7 @@ export default class Skip extends Command {
         super(client, {
             name: 'skip',
             description: {
-                content: 'Skips the current song',
+                content: '跳過當前歌曲',
                 examples: ['skip'],
                 usage: 'skip',
             },
@@ -36,7 +36,7 @@ export default class Skip extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
+                        .setDescription('隊列中沒有歌曲。'),
                 ],
             });
         player.skip();
@@ -48,7 +48,7 @@ export default class Skip extends Command {
                     embed
                         .setColor(this.client.color.main)
                         .setDescription(
-                            `Skipped [${player.current.info.title}](${player.current.info.uri})`
+                            `已跳過 [${player.current.info.title}](${player.current.info.uri})`
                         ),
                 ],
             });

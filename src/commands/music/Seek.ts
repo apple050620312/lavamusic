@@ -5,7 +5,7 @@ export default class Seek extends Command {
         super(client, {
             name: 'seek',
             description: {
-                content: 'Seeks to a certain time in the song',
+                content: '跳轉至歌曲中的某個時間',
                 examples: ['seek 1m, seek 1h 30m'],
                 usage: 'seek <time>',
             },
@@ -28,7 +28,7 @@ export default class Seek extends Command {
             options: [
                 {
                     name: 'time',
-                    description: 'The time to seek to',
+                    description: '欲跳轉的時間',
                     type: 3,
                     required: true,
                 },
@@ -43,13 +43,13 @@ export default class Seek extends Command {
         if (!time)
             return await ctx.sendMessage({
                 embeds: [
-                    embed.setColor(this.client.color.red).setDescription('Invalid time format.'),
+                    embed.setColor(this.client.color.red).setDescription('時間格式無效。'),
                 ],
             });
         player.seek(time);
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Seeked to ${args[0]}`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`跳轉至 ${args[0]}`)],
         });
     }
 }

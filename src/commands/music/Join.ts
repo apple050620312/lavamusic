@@ -5,7 +5,7 @@ export default class Join extends Command {
         super(client, {
             name: 'join',
             description: {
-                content: 'Joins the voice channel',
+                content: '加入語音頻道',
                 examples: ['join'],
                 usage: 'join',
             },
@@ -44,7 +44,7 @@ export default class Join extends Command {
                     embed
                         .setColor(this.client.color.main)
                         .setDescription(
-                            `Joined <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
+                            `加入 <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
                         ),
                 ],
             });
@@ -54,7 +54,7 @@ export default class Join extends Command {
                     embed
                         .setColor(this.client.color.main)
                         .setDescription(
-                            `I'm already connected to <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
+                            `我已經連接到 <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
                         ),
                 ],
             });

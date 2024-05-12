@@ -5,7 +5,7 @@ export default class Karaoke extends Command {
         super(client, {
             name: 'karaoke',
             description: {
-                content: 'on/off the karaoke filter',
+                content: '開啟/關閉卡拉 OK 過濾器',
                 examples: ['karaoke'],
                 usage: 'karaoke',
             },
@@ -37,7 +37,7 @@ export default class Karaoke extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Karaoke filter has been disabled',
+                        description: '卡拉 OK 過濾器已停用',
                         color: client.color.main,
                     },
                 ],
@@ -53,7 +53,7 @@ export default class Karaoke extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Karaoke filter has been enabled',
+                        description: '卡拉 OK 過濾器已啟用',
                         color: client.color.main,
                     },
                 ],

@@ -29,22 +29,22 @@ export default class GuildDelete extends Event {
                 iconURL: guild.iconURL({ extension: 'jpeg' }),
             })
 
-            .setDescription(`**${guild.name}** has been removed from my guilds!`)
+            .setDescription(`**${guild.name}** 已從我的伺服器列表中移除！`)
             .setThumbnail(guild.iconURL({ extension: 'jpeg' }))
             .addFields(
-                { name: 'Owner', value: owner.user.tag, inline: true },
+                { name: '擁有者', value: owner.user.tag, inline: true },
                 {
-                    name: 'Members',
+                    name: '成員',
                     value: guild.memberCount ? guild.memberCount.toString() : 'Unknown',
                     inline: true,
                 },
                 {
-                    name: 'Created At',
+                    name: '創建於',
                     value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
                     inline: true,
                 },
                 {
-                    name: 'Removed At',
+                    name: '移除於',
                     value: `<t:${Math.floor(Date.now() / 1000)}:F>`,
                     inline: true,
                 },

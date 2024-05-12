@@ -46,21 +46,21 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
             if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) {
                 return await (interaction.member as GuildMember)
                     .send({
-                        content: `I don't have **\`SendMessage\`** permission in \`${interaction.guild.name}\`\nchannel: <#${interaction.channelId}>`,
+                        content: `我在 \`${interaction.guild.name}\` 中沒有 **\`SendMessage\`** 權限\n頻道：<#${interaction.channelId}>`,
                     })
                     .catch(() => { });
             }
 
             if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
                 return await interaction.reply({
-                    content: 'I don\'t have **`EmbedLinks`** permission.',
+                    content: '我沒有 **`EmbedLinks`** 權限。',
                 });
 
             if (command.permissions) {
                 if (command.permissions.client) {
                     if (!interaction.guild.members.me.permissions.has(command.permissions.client))
                         return await interaction.reply({
-                            content: 'I don\'t have enough permissions to execute this command.',
+                            content: '我沒有足夠的權限來執行此指令。',
                         });
                 }
 
@@ -71,7 +71,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                         )
                     ) {
                         await interaction.reply({
-                            content: 'You don\'t have enough permissions to use this command.',
+                            content: '您沒有足夠的權限來使用此指令。',
                             ephemeral: true,
                         });
                         return;
@@ -90,17 +90,17 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                 if (command.player.voice) {
                     if (!(interaction.member as GuildMember).voice.channel)
                         return await interaction.reply({
-                            content: `You must be connected to a voice channel to use this \`${command.name}\` command.`,
+                            content: `您必須連接到語音頻道才能使用此 “${command.name}” 指令。`,
                         });
 
                     if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.Speak))
                         return await interaction.reply({
-                            content: `I don't have \`CONNECT\` permissions to execute this \`${command.name}\` command.`,
+                            content: `我沒有 “連接” 權限來執行此 “${command.name}” 指令。`,
                         });
 
                     if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.Speak))
                         return await interaction.reply({
-                            content: `I don't have \`SPEAK\` permissions to execute this \`${command.name}\` command.`,
+                            content: `我沒有 “說話” 權限來執行此 “${command.name}” 指令。`,
                         });
 
                     if (
@@ -111,7 +111,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                         )
                     )
                         return await interaction.reply({
-                            content: `I don't have \`REQUEST TO SPEAK\` permission to execute this \`${command.name}\` command.`,
+                            content: `我沒有 “請求發言” 權限來執行此 “${command.name}” 指令。`,
                         });
                     if (interaction.guild.members.me.voice.channel) {
                         if (
@@ -119,22 +119,22 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                             (interaction.member as GuildMember).voice.channelId
                         )
                             return await interaction.reply({
-                                content: `You are not connected to <#${interaction.guild.members.me.voice.channel.id}> to use this \`${command.name}\` command.`,
+                                content: `您未連接到 <#${interaction.guild.members.me.voice.channel.id}> 來使用此 \`${command.name}\` 指令。`,
                             });
                     }
                 }
                 if (command.player.active) {
                     if (!this.client.queue.get(interaction.guildId))
                         return await interaction.reply({
-                            content: 'Nothing is playing right now.',
+                            content: '現在沒有播放任何內容。',
                         });
                     if (!this.client.queue.get(interaction.guildId).queue)
                         return await interaction.reply({
-                            content: 'Nothing is playing right now.',
+                            content: '現在沒有播放任何內容。',
                         });
                     if (!this.client.queue.get(interaction.guildId).current)
                         return await interaction.reply({
-                            content: 'Nothing is playing right now.',
+                            content: '現在沒有播放任何內容。',
                         });
                 }
                 if (command.player.dj) {
@@ -143,7 +143,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                         const djRole = await this.client.db.getRoles(interaction.guildId);
                         if (!djRole)
                             return await interaction.reply({
-                                content: 'DJ role is not set.',
+                                content: '未設定 DJ 身分組。',
                             });
                         const findDJRole = (interaction.member as GuildMember).roles.cache.find(
                             (x: any) => djRole.map((y: any) => y.roleId).includes(x.id)
@@ -155,7 +155,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                                 )
                             ) {
                                 return await interaction.reply({
-                                    content: 'You need to have the DJ role to use this command.',
+                                    content: '您需要擁有 DJ 身分組才能使用此指令。',
                                     ephemeral: true,
                                 });
                             }
@@ -178,9 +178,9 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                 const timeLeft = (expirationTime - now) / 1000;
                 if (now < expirationTime && timeLeft > 0.9) {
                     return await interaction.reply({
-                        content: `Please wait ${timeLeft.toFixed(
+                        content: `請等待 ${timeLeft.toFixed(
                             1
-                        )} more second(s) before reusing the \`${commandName}\` command.`,
+                        )} 秒再重新使用 \`${commandName}\` 指令。`,
                     });
                 }
                 timestamps.set(interaction.user.id, now);
@@ -195,14 +195,14 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                 )
             )
                 return await interaction.reply({
-                    content: 'You can\'t mention everyone or here.',
+                    content: '你不能提及 everyone 或 here。',
                     ephemeral: true,
                 });
             try {
                 await command.run(this.client, ctx, ctx.args);
             } catch (error) {
                 this.client.logger.error(error);
-                await interaction.reply({ content: `An error occurred: \`${error}\`` });
+                await interaction.reply({ content: `發生錯誤：\`${error}\`` });
             }
         } else if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
             if ((interaction.commandName == 'play') || (interaction.commandName == 'playnext')) {

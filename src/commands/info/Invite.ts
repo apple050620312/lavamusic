@@ -7,7 +7,7 @@ export default class Invite extends Command {
         super(client, {
             name: 'invite',
             description: {
-                content: 'Sends the bot\'s invite link',
+                content: '發送機器人的邀請連結',
                 examples: ['invite'],
                 usage: 'invite',
             },
@@ -34,25 +34,25 @@ export default class Invite extends Command {
         const clientId = process.env.CLIENT_ID;
         if (!clientId) {
             console.error(
-                'Client ID not found in environment variables, cannot generate invite link.'
+                '在環境變數中找不到客戶端 ID，無法產生邀請連結。'
             );
             return await ctx.sendMessage(
-                'Sorry, my invite link is not available at this time. Please tell the bot developer to check their console.'
+                '抱歉，我的邀請連結目前不可用。請告訴機器人開發人員檢查他們的控制台。'
             );
         }
 
         const embed = this.client.embed();
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
-                .setLabel('Invite')
+                .setLabel('邀請我')
                 .setStyle(ButtonStyle.Link)
                 .setURL(
-                    `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=8&scope=bot%20applications.commands`
+                    `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=-1&scope=bot%20applications.commands`
                 ),
             new ButtonBuilder()
-                .setLabel('My Server')
+                .setLabel('Coffee Host')
                 .setStyle(ButtonStyle.Link)
-                .setURL('https://discord.gg/STXurwnZD5')
+                .setURL('https://discord.gg/2vA8ms9X7y')
         );
 
         return await ctx.sendMessage({
@@ -60,7 +60,7 @@ export default class Invite extends Command {
                 embed
                     .setColor(this.client.color.main)
                     .setDescription(
-                        `You can invite me by clicking the button below. Any bugs or outages? Join the support server!`
+                        `您可以點擊下面的按鈕邀請我。有任何錯誤或下線嗎？加入支援伺服器！`
                     ),
             ],
             components: [row],

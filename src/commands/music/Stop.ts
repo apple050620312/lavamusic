@@ -5,7 +5,7 @@ export default class Stop extends Command {
         super(client, {
             name: 'stop',
             description: {
-                content: 'Stops the music and clears the queue',
+                content: '停止音樂並清除隊列',
                 examples: ['stop'],
                 usage: 'stop',
             },
@@ -39,7 +39,7 @@ export default class Stop extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Stopped the music and cleared the queue`),
+                    .setDescription(`已停止音樂並清除隊列`),
             ],
         });
     }

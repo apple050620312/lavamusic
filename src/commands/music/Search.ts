@@ -9,7 +9,7 @@ export default class Search extends Command {
         super(client, {
             name: 'search',
             description: {
-                content: 'Searches for a song',
+                content: '搜尋歌曲',
                 examples: ['search', 'search <song>'],
                 usage: 'search',
             },
@@ -32,7 +32,7 @@ export default class Search extends Command {
             options: [
                 {
                     name: 'song',
-                    description: 'The song you want to search',
+                    description: '您要搜尋的歌曲',
                     type: 3,
                     required: true,
                 },
@@ -55,7 +55,7 @@ export default class Search extends Command {
         const res = await this.client.queue.search(query);
         if (!res)
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(`**No results found**`).setColor(client.color.red)],
+                embeds: [embed.setDescription(`**未找到結果**`).setColor(client.color.red)],
             });
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder().setCustomId('1').setLabel('1').setStyle(ButtonStyle.Primary),
@@ -70,7 +70,7 @@ export default class Search extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription('There was an error while searching.'),
+                            .setDescription('搜尋時出了錯誤。'),
                     ],
                 });
                 break;
@@ -79,7 +79,7 @@ export default class Search extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription('There were no results found.'),
+                            .setDescription('沒有找到結果。'),
                     ],
                 });
                 break;
@@ -114,7 +114,7 @@ export default class Search extends Command {
             await ctx.editMessage({
                 embeds: [
                     embed.setDescription(
-                        `Added [${song.info.title}](${song.info.uri}) to the queue`
+                        `將 [${song.info.title}](${song.info.uri}) 加入隊列中`
                     ),
                 ],
                 components: [],

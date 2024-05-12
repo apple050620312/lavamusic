@@ -5,7 +5,7 @@ export default class Leave extends Command {
         super(client, {
             name: 'leave',
             description: {
-                content: 'Leaves the voice channel',
+                content: '離開語音頻道',
                 examples: ['leave'],
                 usage: 'leave',
             },
@@ -37,7 +37,7 @@ export default class Leave extends Command {
                     embed
                         .setColor(this.client.color.main)
                         .setDescription(
-                            `Left <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
+                            `已離開 <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
                         ),
                 ],
             });
@@ -47,7 +47,7 @@ export default class Leave extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(`I'm not in a voice channel`),
+                        .setDescription(`我不在語音頻道`),
                 ],
             });
         }

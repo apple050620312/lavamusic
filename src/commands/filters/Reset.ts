@@ -5,7 +5,7 @@ export default class Reset extends Command {
         super(client, {
             name: 'reset',
             description: {
-                content: 'Resets the active filters',
+                content: '重置作用中的濾波器',
                 examples: ['reset'],
                 usage: 'reset',
             },
@@ -36,7 +36,7 @@ export default class Reset extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: 'Filters have been reset',
+                    description: '濾波器已重置',
                     color: client.color.main,
                 },
             ],

@@ -25,18 +25,18 @@ export default class GuildCreate extends Event {
         const embed = new EmbedBuilder()
             .setColor(this.client.config.color.green)
             .setAuthor({ name: guild.name, iconURL: guild.iconURL({ extension: 'jpeg' }) })
-            .setDescription(`**${guild.name}** has been added to my guilds!`)
+            .setDescription(`**${guild.name}** 已加入我的伺服器列表！`)
             .setThumbnail(guild.iconURL({ extension: 'jpeg' }))
             .addFields(
-                { name: 'Owner', value: owner.user.tag, inline: true },
-                { name: 'Members', value: guild.memberCount.toString(), inline: true },
+                { name: '擁有者', value: owner.user.tag, inline: true },
+                { name: '成員', value: guild.memberCount.toString(), inline: true },
                 {
-                    name: 'Created At',
+                    name: '創建於',
                     value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:F>`,
                     inline: true,
                 },
                 {
-                    name: 'Joined At',
+                    name: '加入於',
                     value: `<t:${Math.floor(guild.joinedTimestamp / 1000)}:F>`,
                     inline: true,
                 },

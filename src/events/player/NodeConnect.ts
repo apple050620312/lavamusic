@@ -8,7 +8,7 @@ export default class NodeConnect extends Event {
         });
     }
     public async run(node: string): Promise<void> {
-        this.client.logger.success(`Node ${node} is ready!`);
+        this.client.logger.success(`節點 ${node} 已準備就緒！`);
         let data = await this.client.db.get_247();
         if (!data) return;
         if (!Array.isArray(data)) {
@@ -26,6 +26,6 @@ export default class NodeConnect extends Event {
                 await this.client.queue.create(guild, vc, channel);
             }, index * 1000);
         }
-        BotLog.send(this.client, `Node ${node} is ready!`, 'success');
+        BotLog.send(this.client, `節點 ${node} 已準備就緒！`, 'success');
     }
 }

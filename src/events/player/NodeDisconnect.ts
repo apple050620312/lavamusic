@@ -8,7 +8,7 @@ export default class NodeDisconnect extends Event {
         });
     }
     public async run(node: string, count: number): Promise<void> {
-        this.client.logger.warn(`Node ${node} disconnected ${count} times`);
-        BotLog.send(this.client, `Node ${node} disconnected ${count} times`, 'warn');
+        this.client.logger.warn(`節點 ${node} 斷開連接 ${count} 次`);
+        BotLog.send(this.client, `節點 ${node} 斷開連接 ${count} 次`, 'warn');
     }
 }

@@ -7,7 +7,7 @@ export default class Load extends Command {
         super(client, {
             name: 'load',
             description: {
-                content: 'Loads a playlist',
+                content: '載入播放列表',
                 examples: ['load <playlist>'],
                 usage: 'load <playlist>',
             },
@@ -30,7 +30,7 @@ export default class Load extends Command {
             options: [
                 {
                     name: 'playlist',
-                    description: 'The playlist you want to load',
+                    description: '您要載入的播放列表',
                     type: ApplicationCommandOptionType.String,
                     required: true,
                 },
@@ -45,7 +45,7 @@ export default class Load extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'That playlist doesn\'t exist',
+                        description: '該播放清單不存在',
                         color: client.color.red,
                     },
                 ],
@@ -79,7 +79,7 @@ export default class Load extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: `Loaded \`${playlistData.name}\` with \`${JSON.parse(s.track).length}\` songs`,
+                        description: `載入了 \`${playlistData.name}\` 包含 \`${JSON.parse(playlistData.songs).length}\` 首歌曲`,
                         color: client.color.main,
                     },
                 ],

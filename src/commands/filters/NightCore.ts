@@ -5,7 +5,7 @@ export default class NightCore extends Command {
         super(client, {
             name: 'nightcore',
             description: {
-                content: 'on/off nightcore filter',
+                content: '開啟/關閉 Nightcore 濾波器',
                 examples: ['nightcore'],
                 usage: 'nightcore',
             },
@@ -36,7 +36,7 @@ export default class NightCore extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Nightcore filter has been disabled',
+                        description: 'Nightcore 濾波器已停用',
                         color: client.color.main,
                     },
                 ],
@@ -47,7 +47,7 @@ export default class NightCore extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Nightcore filter has been enabled',
+                        description: 'Nightcore 濾波器已啟用',
                         color: client.color.main,
                     },
                 ],

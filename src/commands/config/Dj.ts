@@ -7,7 +7,7 @@ export default class Dj extends Command {
         super(client, {
             name: 'dj',
             description: {
-                content: 'Manage the DJ mode and associated roles',
+                content: '管理 DJ 模式和相關身分組',
                 examples: ['dj add @role', 'dj remove @role', 'dj clear', 'dj toggle'],
                 usage: 'dj',
             },
@@ -30,12 +30,12 @@ export default class Dj extends Command {
             options: [
                 {
                     name: 'add',
-                    description: 'The dj role you want to add',
+                    description: '您要新增的 DJ 身分組',
                     type: ApplicationCommandOptionType.Subcommand,
                     options: [
                         {
                             name: 'role',
-                            description: 'The dj role you want to add',
+                            description: '您要新增的 DJ 身分組',
                             type: ApplicationCommandOptionType.Role,
                             required: true,
                         },
@@ -43,12 +43,12 @@ export default class Dj extends Command {
                 },
                 {
                     name: 'remove',
-                    description: 'The dj role you want to remove',
+                    description: '您要刪除的 DJ 身分組',
                     type: ApplicationCommandOptionType.Subcommand,
                     options: [
                         {
                             name: 'role',
-                            description: 'The dj role you want to remove',
+                            description: '您要刪除的 DJ 身分組',
                             type: ApplicationCommandOptionType.Role,
                             required: true,
                         },
@@ -56,12 +56,12 @@ export default class Dj extends Command {
                 },
                 {
                     name: 'clear',
-                    description: 'Clears all dj roles',
+                    description: '清除所有 DJ 身分組',
                     type: ApplicationCommandOptionType.Subcommand,
                 },
                 {
                     name: 'toggle',
-                    description: 'Toggles the dj role',
+                    description: '切換 DJ 身分組',
                     type: ApplicationCommandOptionType.Subcommand,
                 },
             ],
@@ -84,49 +84,49 @@ export default class Dj extends Command {
         if (subCommand === 'add') {
             if (!role)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription('Please provide a role to add')],
+                    embeds: [embed.setDescription('請提供要新增的身分組')],
                 });
             const isExRole = await client.db
                 .getRoles(ctx.guild.id)
                 .then((r) => r.find((re) => re.roleId === role.id));
             if (isExRole)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${role.id}> is already added`)],
+                    embeds: [embed.setDescription(`DJ 身分組 <@&${role.id}> 已經新增過了`)],
                 });
             client.db.addRole(ctx.guild.id, role.id);
             client.db.setDj(ctx.guild.id, true);
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(`The dj role <@&${role.id}> has been added`)],
+                embeds: [embed.setDescription(`已新增 DJ 身分組 <@&${role.id}>`)],
             });
         } else if (subCommand === 'remove') {
             if (!role)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription('Please provide a role to remove')],
+                    embeds: [embed.setDescription('請提供要刪除的身分組')],
                 });
             const isExRole = await client.db
                 .getRoles(ctx.guild.id)
                 .then((r) => r.find((re) => re.roleId === role.id));
             if (!isExRole)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription(`The dj role <@&${role.id}> is not added`)],
+                    embeds: [embed.setDescription(`尚未新增過 DJ 身分組 <@&${role.id}>`)],
                 });
             client.db.removeRole(ctx.guild.id, role.id);
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(`The dj role <@&${role.id}> has been removed`)],
+                embeds: [embed.setDescription(`DJ 身分組 <@&${role.id}> 已刪除`)],
             });
         } else if (subCommand === 'clear') {
             if (!dj)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription('There are no dj roles to clear')],
+                    embeds: [embed.setDescription('沒有可清除的 DJ 身分組')],
                 });
             client.db.clearRoles(ctx.guild.id);
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(`All dj roles have been removed`)],
+                embeds: [embed.setDescription(`所有 DJ 身分組已刪除`)],
             });
         } else if (subCommand === 'toggle') {
             if (!dj)
                 return await ctx.sendMessage({
-                    embeds: [embed.setDescription('There are no dj roles to toggle')],
+                    embeds: [embed.setDescription('沒有可供切換的 DJ 身分組')],
                 });
             const data = await client.db.getDj(ctx.guild.id);
             if (data) {
@@ -134,7 +134,7 @@ export default class Dj extends Command {
                 return await ctx.sendMessage({
                     embeds: [
                         embed.setDescription(
-                            `The dj mode has been toggled to ${!data.mode ? 'enabled' : 'disabled'}`
+                            `DJ 模式已切換至 ${!data.mode ? '啟用' : '停用'}`
                         ),
                     ],
                 });
@@ -142,8 +142,8 @@ export default class Dj extends Command {
         } else {
             return await ctx.sendMessage({
                 embeds: [
-                    embed.setDescription('Please provide a valid subcommand').addFields({
-                        name: 'Subcommands',
+                    embed.setDescription('請提供有效的副指令').addFields({
+                        name: '副指令',
                         value: '`add`, `remove`, `clear`, `toggle`',
                     }),
                 ],

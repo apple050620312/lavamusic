@@ -8,7 +8,7 @@ export default class Add extends Command {
         super(client, {
             name: 'add',
             description: {
-                content: 'Adds a song to the playlist',
+                content: '將歌曲新增至播放清單',
                 examples: ['add <playlist> <song>'],
                 usage: 'add <playlist> <song>',
             },
@@ -31,13 +31,13 @@ export default class Add extends Command {
             options: [
                 {
                     name: 'playlist',
-                    description: 'The playlist you want to add',
+                    description: '您要新增的播放清單',
                     type: ApplicationCommandOptionType.String,
                     required: true,
                 },
                 {
                     name: 'song',
-                    description: 'The song you want to add',
+                    description: '您要新增的歌曲',
                     type: ApplicationCommandOptionType.String,
                     required: true,
                 },
@@ -52,7 +52,7 @@ export default class Add extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a playlist',
+                        description: '請提供播放清單',
                         color: client.color.red,
                     },
                 ],
@@ -62,7 +62,7 @@ export default class Add extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a song',
+                        description: '請提供歌曲',
                         color: client.color.red,
                     },
                 ],
@@ -74,7 +74,7 @@ export default class Add extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'That playlist doesn\'t exist',
+                        description: '該播放清單不存在',
                         color: client.color.red,
                     },
                 ],
@@ -85,7 +85,7 @@ export default class Add extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'No songs found',
+                        description: '沒有找到歌曲',
                         color: client.color.red,
                     },
                 ],
@@ -104,7 +104,7 @@ export default class Add extends Command {
         ctx.sendMessage({
             embeds: [
                 {
-                    description: `Added ${count} to ${playlistData.name}`,
+                    description: `將 ${count} 加入到 ${playlistData.name}`,
                     color: client.color.green,
                 },
             ],

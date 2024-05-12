@@ -17,13 +17,13 @@ export class Utils {
         const hourMs = 60 * minuteMs;
         const dayMs = 24 * hourMs;
         if (ms < minuteMs) {
-            return `${ms / 1000}s`;
+            return `${ms / 1000}秒`;
         } else if (ms < hourMs) {
-            return `${Math.floor(ms / minuteMs)}m ${Math.floor((ms % minuteMs) / 1000)}s`;
+            return `${Math.floor(ms / minuteMs)}分 ${Math.floor((ms % minuteMs) / 1000)}秒`;
         } else if (ms < dayMs) {
-            return `${Math.floor(ms / hourMs)}h ${Math.floor((ms % hourMs) / minuteMs)}m`;
+            return `${Math.floor(ms / hourMs)}時 ${Math.floor((ms % hourMs) / minuteMs)}分`;
         } else {
-            return `${Math.floor(ms / dayMs)}d ${Math.floor((ms % dayMs) / hourMs)}h`;
+            return `${Math.floor(ms / dayMs)}天 ${Math.floor((ms % dayMs) / hourMs)}時`;
         }
     }
 
@@ -211,7 +211,7 @@ export class Utils {
                 }
             } else {
                 await interaction.reply({
-                    content: 'You can\'t use this button',
+                    content: '您不能使用此按鈕',
                     ephemeral: true,
                 });
             }

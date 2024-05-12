@@ -5,7 +5,7 @@ export default class Nowplaying extends Command {
         super(client, {
             name: 'nowplaying',
             description: {
-                content: 'Shows the currently playing song',
+                content: '顯示目前播放的歌曲',
                 examples: ['nowplaying'],
                 usage: 'nowplaying',
             },
@@ -38,10 +38,10 @@ export default class Nowplaying extends Command {
         const embed1 = this.client
             .embed()
             .setColor(this.client.color.main)
-            .setAuthor({ name: 'Now Playing', iconURL: ctx.guild.iconURL({}) })
+            .setAuthor({ name: '正在播放', iconURL: ctx.guild.iconURL({}) })
             .setThumbnail(track.info.artworkUrl)
             .setDescription(
-                `[${track.info.title}](${track.info.uri}) - Request By: ${track.info.requester}\n\n\`${bar}\``
+                `[${track.info.title}](${track.info.uri}) - 請求者：${track.info.requester}\n\n\`${bar}\``
             )
             .addFields({
                 name: '\u200b',

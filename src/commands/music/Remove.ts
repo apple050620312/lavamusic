@@ -5,7 +5,7 @@ export default class Remove extends Command {
         super(client, {
             name: 'remove',
             description: {
-                content: 'Removes a song from the queue',
+                content: '從隊列中刪除歌曲',
                 examples: ['remove 1'],
                 usage: 'remove <song number>',
             },
@@ -28,7 +28,7 @@ export default class Remove extends Command {
             options: [
                 {
                     name: 'song',
-                    description: 'The song number',
+                    description: '歌曲編號',
                     type: 4,
                     required: true,
                 },
@@ -43,7 +43,7 @@ export default class Remove extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
+                        .setDescription('隊列中沒有歌曲。'),
                 ],
             });
         if (isNaN(Number(args[0])))
@@ -51,7 +51,7 @@ export default class Remove extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('That is not a valid number.'),
+                        .setDescription('這不是一個有效的數字。'),
                 ],
             });
         if (Number(args[0]) > player.queue.length)
@@ -59,7 +59,7 @@ export default class Remove extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('That is not a valid number.'),
+                        .setDescription('這不是一個有效的數字。'),
                 ],
             });
         if (Number(args[0]) < 1)
@@ -67,7 +67,7 @@ export default class Remove extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('That is not a valid number.'),
+                        .setDescription('這不是一個有效的數字。'),
                 ],
             });
         player.remove(Number(args[0]) - 1);
@@ -75,7 +75,7 @@ export default class Remove extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Removed song number ${Number(args[0])} from the queue`),
+                    .setDescription(`已從佇列中刪除歌曲編號 ${Number(args[0])}`),
             ],
         });
     }

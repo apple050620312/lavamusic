@@ -63,7 +63,7 @@ export default class TrackStart extends Event {
         const embed = this.client
             .embed()
             .setAuthor({
-                name: 'Now Playing',
+                name: '正在播放',
                 iconURL:
                     this.client.config.icons[track.info.sourceName] ??
                     this.client.user.displayAvatarURL({ extension: 'png' }),
@@ -71,19 +71,19 @@ export default class TrackStart extends Event {
             .setColor(this.client.color.main)
             .setDescription(`**[${track.info.title}](${track.info.uri})**`)
             .setFooter({
-                text: `Requested by ${track.info.requester.tag}`,
+                text: `請求者：${track.info.requester.tag}`,
                 iconURL: track.info.requester.avatarURL({}),
             })
             .setThumbnail(track.info.artworkUrl)
             .addFields(
                 {
-                    name: 'Duration',
+                    name: '長度',
                     value: track.info.isStream
-                        ? 'LIVE'
+                        ? '直播'
                         : this.client.utils.formatTime(track.info.length),
                     inline: true,
                 },
-                { name: 'Author', value: track.info.author, inline: true }
+                { name: '藝人', value: track.info.author, inline: true }
             )
             .setTimestamp();
         let setup = await this.client.db.getSetup(guild.id);
@@ -111,8 +111,8 @@ export default class TrackStart extends Event {
                         return true;
                     else {
                         b.reply({
-                            content: `You are not connected to <#${b.guild.members.me.voice?.channelId ?? 'None'
-                                }> to use this buttons.`,
+                            content: `您尚未連接到 <#${b.guild.members.me.voice?.channelId ?? 'None'
+                                }> 來使用此按鈕。`,
                             ephemeral: true,
                         });
                         return false;
@@ -124,7 +124,7 @@ export default class TrackStart extends Event {
             collector.on('collect', async interaction => {
                 if (!(await checkDj(this.client, interaction))) {
                     await interaction.reply({
-                        content: `You need to have the DJ role to use this command.`,
+                        content: `您需要擁有 DJ 身分組才能使用此指令。`,
                         ephemeral: true,
                     });
                     return;
@@ -133,7 +133,7 @@ export default class TrackStart extends Event {
                     case 'previous':
                         if (!dispatcher.previous) {
                             await interaction.reply({
-                                content: `There is no previous song.`,
+                                content: `沒有上一首曲目。`,
                                 ephemeral: true,
                             });
                             return;
@@ -142,7 +142,7 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `Previous by ${interaction.user.tag}`,
+                                        text: `由 ${interaction.user.tag} 上一首`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
                                 ],
@@ -155,7 +155,7 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `${player.paused ? 'Paused' : 'Resumed'} by ${interaction.user.tag
+                                        text: `由 ${interaction.user.tag} by ${player.paused ? '暫停' : '繼續'
                                             }`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
@@ -169,7 +169,7 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `Stopped by ${interaction.user.tag}`,
+                                        text: `由 ${interaction.user.tag} 停止`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
                                 ],
@@ -179,7 +179,7 @@ export default class TrackStart extends Event {
                     case 'skip':
                         if (!dispatcher.queue.length) {
                             await interaction.reply({
-                                content: `There is no more song in the queue.`,
+                                content: `隊列中沒有更多歌曲了。`,
                                 ephemeral: true,
                             });
                             return;
@@ -189,7 +189,7 @@ export default class TrackStart extends Event {
                             await message.edit({
                                 embeds: [
                                     embed.setFooter({
-                                        text: `Skipped by ${interaction.user.tag}`,
+                                        text: `由 ${interaction.user.tag} 跳過`,
                                         iconURL: interaction.user.avatarURL({}),
                                     }),
                                 ],
@@ -204,7 +204,7 @@ export default class TrackStart extends Event {
                                     await message.edit({
                                         embeds: [
                                             embed.setFooter({
-                                                text: `Looping by ${interaction.user.tag}`,
+                                                text: `由 ${interaction.user.tag} 單曲循環`,
                                                 iconURL: interaction.user.avatarURL({}),
                                             }),
                                         ],
@@ -217,7 +217,7 @@ export default class TrackStart extends Event {
                                     await message.edit({
                                         embeds: [
                                             embed.setFooter({
-                                                text: `Looping Queue by ${interaction.user.tag}`,
+                                                text: `由 ${interaction.user.tag} 循環隊列`,
                                                 iconURL: interaction.user.avatarURL({}),
                                             }),
                                         ],
@@ -230,7 +230,7 @@ export default class TrackStart extends Event {
                                     await message.edit({
                                         embeds: [
                                             embed.setFooter({
-                                                text: `Looping Off by ${interaction.user.tag}`,
+                                                text: `由 ${interaction.user.tag} 關閉循環`,
                                                 iconURL: interaction.user.avatarURL({}),
                                             }),
                                         ],

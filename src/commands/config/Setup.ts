@@ -13,7 +13,7 @@ export default class Setup extends Command {
         super(client, {
             name: 'setup',
             description: {
-                content: 'Sets up the bot',
+                content: '設定機器人',
                 examples: ['setup create', 'setup delete', 'setup info'],
                 usage: 'setup',
             },
@@ -36,17 +36,17 @@ export default class Setup extends Command {
             options: [
                 {
                     name: 'create',
-                    description: 'Creates the song request channel',
+                    description: '建立點歌頻道',
                     type: ApplicationCommandOptionType.Subcommand,
                 },
                 {
                     name: 'delete',
-                    description: 'Deletes the song request channel',
+                    description: '刪除點歌頻道',
                     type: ApplicationCommandOptionType.Subcommand,
                 },
                 {
                     name: 'info',
-                    description: 'Shows the song request channel',
+                    description: '顯示點歌頻道',
                     type: ApplicationCommandOptionType.Subcommand,
                 },
             ],
@@ -68,15 +68,15 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: 'The song request channel already exists',
+                                description: '點歌頻道已存在',
                                 color: client.color.red,
                             },
                         ],
                     });
                 const textChannel = await ctx.guild.channels.create({
-                    name: `${this.client.user.username}-song-requests`,
+                    name: `${this.client.user.username}-點歌`,
                     type: ChannelType.GuildText,
-                    topic: 'Song requests for the music bot',
+                    topic: '音樂機器人的點歌',
                     permissionOverwrites: [
                         {
                             type: OverwriteType.Member,
@@ -104,7 +104,7 @@ export default class Setup extends Command {
                 const desc =
                     player && player.queue && player.current
                         ? `[${player.current.info.title}](${player.current.info.uri})`
-                        : 'Nothing playing right now';
+                        : '現在沒有播放任何內容';
 
                 embed.setDescription(desc).setImage(image);
                 await textChannel
@@ -119,7 +119,7 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         embed2.setDescription(
-                            `The song request channel has been created in <#${textChannel.id}>`
+                            `點歌頻道 <#${textChannel.id}> 已創建`
                         ),
                     ],
                 });
@@ -131,7 +131,7 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: 'The song request channel doesn\'t exist',
+                                description: '點歌頻道不存在',
                                 color: client.color.red,
                             },
                         ],
@@ -146,7 +146,7 @@ export default class Setup extends Command {
                 await ctx.sendMessage({
                     embeds: [
                         {
-                            description: 'The song request channel has been deleted',
+                            description: '點歌頻道已刪除',
                             color: client.color.main,
                         },
                     ],
@@ -160,14 +160,14 @@ export default class Setup extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             {
-                                description: 'The song request channel doesn\'t exist',
+                                description: '點歌頻道不存在',
                                 color: client.color.red,
                             },
                         ],
                     });
                 const channel = ctx.guild.channels.cache.get(data3.textId);
                 embed
-                    .setDescription(`The song request channel is <#${channel.id}>`)
+                    .setDescription(`點歌頻道為 <#${channel.id}>`)
                     .setColor(client.color.main);
                 await ctx.sendMessage({
                     embeds: [embed],

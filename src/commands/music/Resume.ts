@@ -5,7 +5,7 @@ export default class Resume extends Command {
         super(client, {
             name: 'resume',
             description: {
-                content: 'Resumes the current song',
+                content: '繼續當前歌曲',
                 examples: ['resume'],
                 usage: 'resume',
             },
@@ -36,13 +36,13 @@ export default class Resume extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('The player is not paused.'),
+                        .setDescription('播放未暫停。'),
                 ],
             });
         player.pause();
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Resumed the player`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`已繼續播放`)],
         });
     }
 }

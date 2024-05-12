@@ -7,7 +7,7 @@ export default class Delete extends Command {
         super(client, {
             name: 'delete',
             description: {
-                content: 'Deletes a playlist',
+                content: '刪除播放清單',
                 examples: ['delete <playlist name>'],
                 usage: 'delete <playlist name>',
             },
@@ -30,7 +30,7 @@ export default class Delete extends Command {
             options: [
                 {
                     name: 'playlist',
-                    description: 'The playlist you want to delete',
+                    description: '您要刪除的播放清單',
                     type: ApplicationCommandOptionType.String,
                     required: true,
                 },
@@ -45,7 +45,7 @@ export default class Delete extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'That playlist doesn\'t exist',
+                        description: '該播放清單不存在',
                         color: client.color.red,
                     },
                 ],
@@ -54,7 +54,7 @@ export default class Delete extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Deleted playlist **${playlist}**`,
+                    description: `已刪除播放清單 **${playlist}**`,
                     color: client.color.main,
                 },
             ],

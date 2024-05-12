@@ -5,7 +5,7 @@ export default class _247 extends Command {
         super(client, {
             name: '247',
             description: {
-                content: 'set the bot to stay in the vc',
+                content: '將機器人設定為留在語音頻道中',
                 examples: ['247'],
                 usage: '247',
             },
@@ -46,7 +46,7 @@ export default class _247 extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     embed
-                        .setDescription(`**247 mode has been enabled**`)
+                        .setDescription(`**24/7 模式已啟用**`)
                         .setColor(client.color.main),
                 ],
             });
@@ -55,7 +55,7 @@ export default class _247 extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     embed
-                        .setDescription(`**247 mode has been disabled**`)
+                        .setDescription(`**24/7 模式已停用**`)
                         .setColor(client.color.red),
                 ],
             });

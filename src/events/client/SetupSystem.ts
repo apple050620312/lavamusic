@@ -14,7 +14,7 @@ export default class SetupSystem extends Event {
 
         if (!(channel instanceof TextChannel)) return;
         if (!message.member.voice.channel) {
-            await oops(channel, `You are not connected to a voice channel to queue songs.`);
+            await oops(channel, `您未連接到語音頻道來點歌。`);
             if (message) await message.delete().catch(() => {});
             return;
         }
@@ -26,7 +26,7 @@ export default class SetupSystem extends Event {
         ) {
             await oops(
                 channel,
-                `I don't have enough permission to connect/speak in <#${message.member.voice.channel.id}>`
+                `我沒有足夠的權限在 <#${message.member.voice.channel.id}> 連接/說話`
             );
             if (message) await message.delete().catch(() => {});
             return;
@@ -39,9 +39,9 @@ export default class SetupSystem extends Event {
         ) {
             await oops(
                 channel,
-                `You are not connected to <#${
+                `您未連接到 <#${
                     message.guild.members.cache.get(this.client.user.id).voice.channelId
-                }> to queue songs`
+                }> 來點歌`
             );
             if (message) await message.delete().catch(() => {});
             return;

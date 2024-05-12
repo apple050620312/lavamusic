@@ -5,7 +5,7 @@ export default class Help extends Command {
         super(client, {
             name: 'help',
             description: {
-                content: 'Shows the help menu',
+                content: '顯示幫助選單',
                 examples: ['help'],
                 usage: 'help',
             },
@@ -28,7 +28,7 @@ export default class Help extends Command {
             options: [
                 {
                     name: 'command',
-                    description: 'The command you want to get info on',
+                    description: '您想要獲得資訊的指令',
                     type: 3,
                     required: false,
                 },
@@ -57,12 +57,12 @@ export default class Help extends Command {
             });
             const helpEmbed = embed
                 .setColor(this.client.color.main)
-                .setTitle('Help Menu')
+                .setTitle('幫助選單')
                 .setDescription(
-                    `Hey there! I'm ${this.client.user.username}, a music bot made with [Lavamusic](https://github.com/appujet/lavamusic) and Discord. You can use \`${guild.prefix}help <command>\` to get more info on a command.`
+                    `嘿！ 我是 ${this.client.user.username}，一個用 [Lavamusic](https://github.com/appujet/lavamusic) 和 Discord 製作的音樂機器人。 您可以使用 \`${guild.prefix}help <command>\` 來取得更多關於指令的資訊。`
                 )
                 .setFooter({
-                    text: `Use ${guild.prefix}help <command> for more info on a command`,
+                    text: `使用 ${guild.prefix}help <command> 獲得有關指令的更多資訊`,
                 });
             fildes.forEach(field => helpEmbed.addFields(field));
             ctx.sendMessage({ embeds: [helpEmbed] });
@@ -74,31 +74,31 @@ export default class Help extends Command {
                         client
                             .embed()
                             .setColor(client.color.red)
-                            .setDescription(`Command \`${args[0]}\` not found`),
+                            .setDescription(`未找到指令 \`${args[0]}\``),
                     ],
                 });
             const embed = this.client.embed();
             const helpEmbed = embed
                 .setColor(this.client.color.main)
-                .setTitle(`Help Menu - ${command.name}`).setDescription(`**Description:** ${command.description.content
+                .setTitle(`幫助選單 - ${command.name}`).setDescription(`**描述：** ${command.description.content
                     }
-**Usage:** ${guild.prefix}${command.description.usage}
-**Examples:** ${command.description.examples.map(example => `${guild.prefix}${example}`).join(', ')}
-**Aliases:** ${command.aliases.map(alias => `\`${alias}\``).join(', ')}
-**Category:** ${command.category}
-**Cooldown:** ${command.cooldown} seconds
-**Permissions:** ${command.permissions.user.length > 0
+**用法：** ${guild.prefix}${command.description.usage}
+**範例：** ${command.description.examples.map(example => `${guild.prefix}${example}`).join(', ')}
+**別名：** ${command.aliases.map(alias => `\`${alias}\``).join(', ')}
+**類別：** ${command.category}
+**冷卻：** ${command.cooldown} 秒
+**權限：** ${command.permissions.user.length > 0
                         ? command.permissions.user.map(perm => `\`${perm}\``).join(', ')
                         : 'None'
                     }
-**Bot Permissions:** ${command.permissions.client.map(perm => `\`${perm}\``).join(', ')}
-**Developer Only:** ${command.permissions.dev ? 'Yes' : 'No'}
-**Slash Command:** ${command.slashCommand ? 'Yes' : 'No'}
-**Args:** ${command.args ? 'Yes' : 'No'}
-**Player:** ${command.player.active ? 'Yes' : 'No'}
-**DJ:** ${command.player.dj ? 'Yes' : 'No'}
-**DJ Permissions:** ${command.player.djPerm ? command.player.djPerm : 'None'}
-**Voice:** ${command.player.voice ? 'Yes' : 'No'}`);
+**機器人權限：** ${command.permissions.client.map(perm => `\`${perm}\``).join(', ')}
+**僅限開發人員：** ${command.permissions.dev ? '是' : '否'}
+**斜線指令：** ${command.slashCommand ? '是' : '否'}
+**參數：** ${command.args ? '是' : '否'}
+**Player:** ${command.player.active ? '是' : '否'}
+**DJ:** ${command.player.dj ? '是' : '否'}
+**DJ 權限：** ${command.player.djPerm ? command.player.djPerm : 'None'}
+**Voice:** ${command.player.voice ? '是' : '否'}`);
             ctx.sendMessage({ embeds: [helpEmbed] });
         }
     }

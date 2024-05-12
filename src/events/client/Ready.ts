@@ -7,7 +7,7 @@ export default class Ready extends Event {
         });
     }
     public async run(): Promise<void> {
-        this.client.logger.success(`${this.client.user?.tag} is ready!`);
+        this.client.logger.success(`${this.client.user?.tag} 已就緒！`);
 
         this.client.user?.setPresence({
             activities: [

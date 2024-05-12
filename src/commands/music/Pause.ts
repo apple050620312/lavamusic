@@ -5,7 +5,7 @@ export default class Pause extends Command {
         super(client, {
             name: 'pause',
             description: {
-                content: 'Pauses the current song',
+                content: '暫停當前歌曲',
                 examples: ['pause'],
                 usage: 'pause',
             },
@@ -41,7 +41,7 @@ export default class Pause extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(`The song is already paused`),
+                        .setDescription(`歌曲已經暫停了`),
                 ],
             });
         }

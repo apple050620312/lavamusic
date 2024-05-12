@@ -5,7 +5,7 @@ export default class Prefix extends Command {
         super(client, {
             name: 'prefix',
             description: {
-                content: 'Shows the bot\'s prefix',
+                content: '顯示機器人的前綴',
                 examples: ['prefix set', 'prefix reset', 'prefix set !'],
                 usage: 'prefix set, prefix reset, prefix set !',
             },
@@ -28,12 +28,12 @@ export default class Prefix extends Command {
             options: [
                 {
                     name: 'set',
-                    description: 'Sets the prefix',
+                    description: '設定前綴',
                     type: 1,
                     options: [
                         {
                             name: 'prefix',
-                            description: 'The prefix you want to set',
+                            description: '您要設定的前綴',
                             type: 3,
                             required: true,
                         },
@@ -41,7 +41,7 @@ export default class Prefix extends Command {
                 },
                 {
                     name: 'reset',
-                    description: 'Resets the prefix to the default one',
+                    description: '將前綴重設為預設前綴',
                     type: 1,
                 },
             ],
@@ -64,7 +64,7 @@ export default class Prefix extends Command {
             case 'set':
                 if (!pre) {
                     embed.setDescription(
-                        `The prefix for this server is \`${guild ? guild.prefix : client.config.prefix
+                        `此伺服器的前綴是 \`${guild ? guild.prefix : client.config.prefix
                         }\``
                     );
                     return await ctx.sendMessage({ embeds: [embed] });
@@ -72,7 +72,7 @@ export default class Prefix extends Command {
                 if (pre.length > 3)
                     return await ctx.sendMessage({
                         embeds: [
-                            embed.setDescription(`The prefix can't be longer than 3 characters`),
+                            embed.setDescription(`前綴不能超過 3 個字符`),
                         ],
                     });
 
@@ -80,14 +80,14 @@ export default class Prefix extends Command {
                     client.db.setPrefix(ctx.guild.id, pre);
                     return await ctx.sendMessage({
                         embeds: [
-                            embed.setDescription(`The prefix for this server is now \`${pre}\``),
+                            embed.setDescription(`此伺服器的前綴現在是 \`${pre}\``),
                         ],
                     });
                 } else {
                     client.db.setPrefix(ctx.guild.id, pre);
                     return await ctx.sendMessage({
                         embeds: [
-                            embed.setDescription(`The prefix for this server is now \`${pre}\``),
+                            embed.setDescription(`此伺服器的前綴現在是 \`${pre}\``),
                         ],
                     });
                 }
@@ -96,7 +96,7 @@ export default class Prefix extends Command {
                     return await ctx.sendMessage({
                         embeds: [
                             embed.setDescription(
-                                `The prefix for this server is \`${client.config.prefix}\``
+                                `此伺服器的前綴是 \`${client.config.prefix}\``
                             ),
                         ],
                     });
@@ -104,7 +104,7 @@ export default class Prefix extends Command {
                 return await ctx.sendMessage({
                     embeds: [
                         embed.setDescription(
-                            `The prefix for this server is now \`${client.config.prefix}\``
+                            `此伺服器的前綴現在是 \`${client.config.prefix}\``
                         ),
                     ],
                 });

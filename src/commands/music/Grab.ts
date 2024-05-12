@@ -5,7 +5,7 @@ export default class Grab extends Command {
         super(client, {
             name: 'grab',
             description: {
-                content: 'Grabs the current playing song',
+                content: '抓取目前正在播放的歌曲',
                 examples: ['grab'],
                 usage: 'grab',
             },
@@ -40,22 +40,22 @@ export default class Grab extends Command {
                 .setURL(song.info.uri)
                 .setThumbnail(song.info.artworkUrl)
                 .setDescription(
-                    `**Duration:** ${
-                        song.info.isStream ? 'LIVE' : client.utils.formatTime(song.info.length)
-                    }\n**Requested by:** ${song.info.requester}\n**Link:** [Click here](${
+                    `**長度：** ${
+                        song.info.isStream ? '直播' : client.utils.formatTime(song.info.length)
+                    }\n**請求者：** ${song.info.requester}\n**連結：** [點我](${
                         song.info.uri
                     })`
                 )
                 .setColor(client.color.main);
             await ctx.author.send({ embeds: [dm] });
             return await ctx.sendMessage({
-                embeds: [embed.setDescription(`**I sent you a DM.**`).setColor(client.color.green)],
+                embeds: [embed.setDescription(`**我私訊你了。**`).setColor(client.color.green)],
             });
         } catch (e) {
             return await ctx.sendMessage({
                 embeds: [
                     embed
-                        .setDescription(`**I couldn't send you a DM.**`)
+                        .setDescription(`**我沒辦法私訊你。**`)
                         .setColor(client.color.red),
                 ],
             });

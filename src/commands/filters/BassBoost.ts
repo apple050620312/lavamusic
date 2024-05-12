@@ -5,7 +5,7 @@ export default class BassBoost extends Command {
         super(client, {
             name: 'bassboost',
             description: {
-                content: 'on/off bassboost filter',
+                content: '開啟/關閉低音增強',
                 examples: ['bassboost'],
                 usage: 'bassboost',
             },
@@ -36,7 +36,7 @@ export default class BassBoost extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Bassboost filter has been disabled',
+                        description: '低音增強已停用',
                         color: client.color.main,
                     },
                 ],
@@ -52,7 +52,7 @@ export default class BassBoost extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Bassboost filter has been enabled',
+                        description: '低音增強已啟用',
                         color: client.color.main,
                     },
                 ],

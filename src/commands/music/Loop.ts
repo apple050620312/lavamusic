@@ -5,7 +5,7 @@ export default class Loop extends Command {
         super(client, {
             name: 'loop',
             description: {
-                content: 'loop the current song or the queue',
+                content: '循環播放目前歌曲或隊列',
                 examples: ['loop', 'loop queue', 'loop song'],
                 usage: 'loop',
             },
@@ -37,21 +37,21 @@ export default class Loop extends Command {
                 player.loop = 'repeat';
                 return await ctx.sendMessage({
                     embeds: [
-                        embed.setDescription(`**Looping the song**`).setColor(client.color.main),
+                        embed.setDescription(`**正在循環播放歌曲**`).setColor(client.color.main),
                     ],
                 });
             case 'repeat':
                 player.loop = 'queue';
                 return await ctx.sendMessage({
                     embeds: [
-                        embed.setDescription(`**Looping the queue**`).setColor(client.color.main),
+                        embed.setDescription(`**正在循環播放隊列**`).setColor(client.color.main),
                     ],
                 });
             case 'queue':
                 player.loop = 'off';
                 return await ctx.sendMessage({
                     embeds: [
-                        embed.setDescription(`**Looping is now off**`).setColor(client.color.main),
+                        embed.setDescription(`**循環播放已關閉**`).setColor(client.color.main),
                     ],
                 });
         }

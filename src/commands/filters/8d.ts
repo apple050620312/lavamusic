@@ -5,7 +5,7 @@ export default class _8d extends Command {
         super(client, {
             name: '8d',
             description: {
-                content: 'on/off 8d filter',
+                content: '開啟/關閉 8D 環繞音效',
                 examples: ['8d'],
                 usage: '8d',
             },
@@ -37,7 +37,7 @@ export default class _8d extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: '8D filter has been disabled',
+                        description: '8D 環繞音效已停用',
                         color: client.color.main,
                     },
                 ],
@@ -48,7 +48,7 @@ export default class _8d extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: '8D filter has been enabled',
+                        description: '8D 環繞音效已啟用',
                         color: client.color.main,
                     },
                 ],

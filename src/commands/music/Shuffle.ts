@@ -5,7 +5,7 @@ export default class Shuffle extends Command {
         super(client, {
             name: 'shuffle',
             description: {
-                content: 'Shuffles the queue',
+                content: '打亂隊列',
                 examples: ['shuffle'],
                 usage: 'shuffle',
             },
@@ -36,13 +36,13 @@ export default class Shuffle extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
+                        .setDescription('隊列中沒有歌曲。'),
                 ],
             });
         player.setShuffle();
 
         return await ctx.sendMessage({
-            embeds: [embed.setColor(this.client.color.main).setDescription(`Shuffled the queue`)],
+            embeds: [embed.setColor(this.client.color.main).setDescription(`已打亂隊列`)],
         });
     }
 }

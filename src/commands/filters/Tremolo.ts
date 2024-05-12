@@ -5,7 +5,7 @@ export default class Tremolo extends Command {
         super(client, {
             name: 'tremolo',
             description: {
-                content: 'on/off the tremolo filter',
+                content: '開啟/關閉顫音濾波器',
                 examples: ['tremolo'],
                 usage: 'tremolo',
             },
@@ -37,7 +37,7 @@ export default class Tremolo extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'tremolo filter has been disabled',
+                        description: '顫音濾波器已停用',
                         color: client.color.main,
                     },
                 ],
@@ -48,7 +48,7 @@ export default class Tremolo extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'tremolo filter has been enabled',
+                        description: '顫音濾波器已啟用',
                         color: client.color.main,
                     },
                 ],

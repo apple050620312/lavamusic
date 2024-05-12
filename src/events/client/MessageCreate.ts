@@ -21,7 +21,7 @@ export default class MessageCreate extends Event {
         const mention = new RegExp(`^<@!?${this.client.user.id}>( |)$`);
         if (message.content.match(mention)) {
             await message.reply({
-                content: `Hey, my prefix for this server is \`${guild.prefix}\` Want more info? then do \`${guild.prefix}help\`\nStay Safe, Stay Awesome!`,
+                content: `我在此伺服器的前綴是 \`${prefix.prefix}\`\n想瞭解更多請使用 \`${prefix.prefix}help\``,
             });
             return;
         }
@@ -56,27 +56,27 @@ export default class MessageCreate extends Event {
         if (!message.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages))
             return await message.author
                 .send({
-                    content: `I don't have **\`SendMessage\`** permission in \`${message.guild.name}\`\nchannel: <#${message.channelId}>`,
+                    content: `我在 \`${message.guild.name}\` 中沒有 **\`傳送訊息\`** 權限\n頻道：<#${message.channelId}>`,
                 })
                 .catch(() => { });
 
         if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
             return await message.reply({
-                content: 'I don\'t have **`EmbedLinks`** permission.',
+                content: '我沒有 **`嵌入連結`** 權限。',
             });
 
         if (command.permissions) {
             if (command.permissions.client) {
                 if (!message.guild.members.me.permissions.has(command.permissions.client))
                     return await message.reply({
-                        content: 'I don\'t have enough permissions to execute this command.',
+                        content: '我沒有足夠的權限來執行此指令。',
                     });
             }
 
             if (command.permissions.user) {
                 if (!message.member.permissions.has(command.permissions.user))
                     return await message.reply({
-                        content: 'You don\'t have enough permissions to use this command.',
+                        content: '您沒有足夠的權限來使用此指令。',
                     });
             }
             if (command.permissions.dev) {
@@ -90,17 +90,17 @@ export default class MessageCreate extends Event {
             if (command.player.voice) {
                 if (!message.member.voice.channel)
                     return await message.reply({
-                        content: `You must be connected to a voice channel to use this \`${command.name}\` command.`,
+                        content: `您必須連接到語音頻道才能使用此 “${command.name}” 指令。`,
                     });
 
                 if (!message.guild.members.me.permissions.has(PermissionFlagsBits.Speak))
                     return await message.reply({
-                        content: `I don't have \`CONNECT\` permissions to execute this \`${command.name}\` command.`,
+                        content: `我沒有 “連接” 權限來執行此 “${command.name}” 指令。`,
                     });
 
                 if (!message.guild.members.me.permissions.has(PermissionFlagsBits.Speak))
                     return await message.reply({
-                        content: `I don't have \`SPEAK\` permissions to execute this \`${command.name}\` command.`,
+                        content: `我沒有 “說話” 權限來執行此 “${command.name}” 指令。`,
                     });
 
                 if (
@@ -108,28 +108,28 @@ export default class MessageCreate extends Event {
                     !message.guild.members.me.permissions.has(PermissionFlagsBits.RequestToSpeak)
                 )
                     return await message.reply({
-                        content: `I don't have \`REQUEST TO SPEAK\` permission to execute this \`${command.name}\` command.`,
+                        content: `我沒有 “請求發言” 權限來執行此 “${command.name}” 指令。`,
                     });
 
                 if (message.guild.members.me.voice.channel) {
                     if (message.guild.members.me.voice.channelId !== message.member.voice.channelId)
                         return await message.reply({
-                            content: `You are not connected to <#${message.guild.members.me.voice.channel.id}> to use this \`${command.name}\` command.`,
+                            content: `您未連接到 <#${message.guild.members.me.voice.channel.id}> 來使用此 \`${command.name}\` 指令。`,
                         });
                 }
             }
             if (command.player.active) {
                 if (!this.client.queue.get(message.guildId))
                     return await message.reply({
-                        content: 'Nothing is playing right now.',
+                        content: '現在沒有播放任何內容。',
                     });
                 if (!this.client.queue.get(message.guildId).queue)
                     return await message.reply({
-                        content: 'Nothing is playing right now.',
+                        content: '現在沒有播放任何內容。',
                     });
                 if (!this.client.queue.get(message.guildId).current)
                     return await message.reply({
-                        content: 'Nothing is playing right now.',
+                        content: '現在沒有播放任何內容。',
                     });
             }
             if (command.player.dj) {
@@ -138,7 +138,7 @@ export default class MessageCreate extends Event {
                     const djRole = await this.client.db.getRoles(message.guildId);
                     if (!djRole)
                         return await message.reply({
-                            content: 'DJ role is not set.',
+                            content: '未設定 DJ 身分組。',
                         });
                     const findDJRole = message.member.roles.cache.find((x: any) =>
                         djRole.map((y: any) => y.roleId).includes(x.id)
@@ -147,7 +147,7 @@ export default class MessageCreate extends Event {
                         if (!message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
                             return await message
                                 .reply({
-                                    content: 'You need to have the DJ role to use this command.',
+                                    content: '您需要擁有 DJ 身分組才能使用此指令。',
                                 })
                                 .then(msg => setTimeout(() => msg.delete(), 5000));
                         }
@@ -160,15 +160,15 @@ export default class MessageCreate extends Event {
                 const embed = this.client
                     .embed()
                     .setColor(this.client.color.red)
-                    .setTitle('Missing Arguments')
+                    .setTitle('缺少參數')
                     .setDescription(
-                        `Please provide the required arguments for the \`${command.name
-                        }\` command.\n\nExamples:\n${command.description.examples
+                        `請提供 \`${command.name
+                        }\` 指令所需的參數。\n\n範例：\n${command.description.examples
                             ? command.description.examples.join('\n')
                             : 'None'
                         }`
                     )
-                    .setFooter({ text: 'Syntax: [] = optional, <> = required' });
+                    .setFooter({ text: '語法：[] = 可選，<> = 必需' });
                 return await message.reply({ embeds: [embed] });
             }
         }
@@ -188,9 +188,9 @@ export default class MessageCreate extends Event {
             const timeLeft = (expirationTime - now) / 1000;
             if (now < expirationTime && timeLeft > 0.9) {
                 return await message.reply({
-                    content: `Please wait ${timeLeft.toFixed(
+                    content: `請等待 ${timeLeft.toFixed(
                         1
-                    )} more second(s) before reusing the \`${cmd}\` command.`,
+                    )} 秒再重新使用 \`${cmd}\` 指令。`,
                 });
             }
             timestamps.set(message.author.id, now);
@@ -198,14 +198,14 @@ export default class MessageCreate extends Event {
         }
         if (args.includes('@everyone') || args.includes('@here'))
             return await message.reply({
-                content: 'You can\'t use this command with everyone or here.',
+                content: '您不能將此指令與 everyone 或 here 一起使用。',
             });
 
         try {
             return command.run(this.client, ctx, ctx.args);
         } catch (error) {
             this.client.logger.error(error);
-            await message.reply({ content: `An error occurred: \`${error}\`` });
+            await message.reply({ content: `發生錯誤：\`${error}\`` });
             return;
         }
     }

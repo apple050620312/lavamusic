@@ -10,20 +10,20 @@ export default class NodeDestroy extends Event {
         });
     }
     public async run(node: string, code: number, reason: string): Promise<void> {
-        this.client.logger.error(`Node ${node} destroyed with code ${code} and reason ${reason}`);
+        this.client.logger.error(`節點 ${node} 被破壞，代號為 ${code}，原因為 ${reason}`);
         BotLog.send(
             this.client,
-            `Node ${node} destroyed with code ${code} and reason ${reason}`,
+            `節點 ${node} 被破壞，代號為 ${code}，原因為 ${reason}`,
             'error'
         );
         destroyCount++;
         if (destroyCount >= 5) {
             this.client.shoukaku.removeNode(node);
             destroyCount = 0;
-            this.client.logger.warn(`Node ${node} removed from nodes list due to excessive disconnects`);
+            this.client.logger.warn(`由於過度斷開連接，節點 ${node} 從節點列表中刪除`);
             BotLog.send(
                 this.client,
-                `Node ${node} removed from nodes list due to excessive disconnects`,
+                `由於過度斷開連接，節點 ${node} 從節點列表中刪除`,
                 'warn'
             );
         }

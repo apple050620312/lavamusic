@@ -5,7 +5,7 @@ export default class Autoplay extends Command {
         super(client, {
             name: 'autoplay',
             description: {
-                content: 'Toggles autoplay',
+                content: '切換自動播放',
                 examples: ['autoplay'],
                 usage: 'autoplay',
             },
@@ -34,10 +34,10 @@ export default class Autoplay extends Command {
 
         const autoplay = player.autoplay;
         if (!autoplay) {
-            embed.setDescription(`Autoplay has been enabled`).setColor(client.color.main);
+            embed.setDescription(`自動播放已啟用`).setColor(client.color.main);
             player.setAutoplay(true);
         } else {
-            embed.setDescription(`Autoplay has been disabled`).setColor(client.color.main);
+            embed.setDescription(`自動播放已停用`).setColor(client.color.main);
             player.setAutoplay(false);
         }
         ctx.sendMessage({ embeds: [embed] });

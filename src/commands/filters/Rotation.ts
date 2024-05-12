@@ -5,7 +5,7 @@ export default class Rotation extends Command {
         super(client, {
             name: 'rotation',
             description: {
-                content: 'on/off rotation filter',
+                content: '開啟/關閉旋轉濾波器',
                 examples: ['rotation'],
                 usage: 'rotation',
             },
@@ -37,7 +37,7 @@ export default class Rotation extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'rotation filter has been disabled',
+                        description: '旋轉濾波器已停用',
                         color: client.color.main,
                     },
                 ],
@@ -48,7 +48,7 @@ export default class Rotation extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'rotation filter has been enabled',
+                        description: '旋轉濾波器已啟用',
                         color: client.color.main,
                     },
                 ],

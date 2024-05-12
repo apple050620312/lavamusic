@@ -5,7 +5,7 @@ export default class Queue extends Command {
         super(client, {
             name: 'queue',
             description: {
-                content: 'Shows the current queue',
+                content: '顯示目前隊列',
                 examples: ['queue'],
                 usage: 'queue',
             },
@@ -37,11 +37,11 @@ export default class Queue extends Command {
                         .embed()
                         .setColor(this.client.color.main)
                         .setDescription(
-                            `Now playing: [${player.current.info.title}](${
+                            `現正播放：[${player.current.info.title}](${
                                 player.current.info.uri
-                            }) - Request By: ${player.current?.info.requester} - Duration: ${
+                            }) - 請求者：${player.current?.info.requester} - Duration: ${
                                 player.current.info.isStream
-                                    ? 'LIVE'
+                                    ? '直播'
                                     : this.client.utils.formatTime(player.current.info.length)
                             }`
                         ),
@@ -49,10 +49,10 @@ export default class Queue extends Command {
             });
         const queue = player.queue.map(
             (track, index) =>
-                `${index + 1}. [${track.info.title}](${track.info.uri}) - Request By: ${
+                `${index + 1}. [${track.info.title}](${track.info.uri}) - 請求者：${
                     track?.info.requester
-                } - Duration: ${
-                    track.info.isStream ? 'LIVE' : this.client.utils.formatTime(track.info.length)
+                } - 長度${
+                    track.info.isStream ? '直播' : this.client.utils.formatTime(track.info.length)
                 }`
         );
         let chunks = client.utils.chunk(queue, 10) as any;
@@ -62,9 +62,9 @@ export default class Queue extends Command {
             const embed = this.client
                 .embed()
                 .setColor(this.client.color.main)
-                .setAuthor({ name: 'Queue', iconURL: ctx.guild.iconURL({}) })
+                .setAuthor({ name: '隊列', iconURL: ctx.guild.iconURL({}) })
                 .setDescription(chunks[i].join('\n'))
-                .setFooter({ text: `Page ${i + 1} of ${chunks.length}` });
+                .setFooter({ text: `第 ${i + 1} 頁，共 ${chunks.length}` });
             pages.push(embed);
         }
 

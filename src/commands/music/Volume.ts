@@ -5,7 +5,7 @@ export default class Volume extends Command {
         super(client, {
             name: 'volume',
             description: {
-                content: 'Sets the volume of the player',
+                content: '設定播放的音量',
                 examples: ['volume 100'],
                 usage: 'volume <number>',
             },
@@ -28,7 +28,7 @@ export default class Volume extends Command {
             options: [
                 {
                     name: 'number',
-                    description: 'The volume you want to set',
+                    description: '您要設定的音量',
                     type: 4,
                     required: true,
                 },
@@ -44,7 +44,7 @@ export default class Volume extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('Please provide a valid number.'),
+                        .setDescription('請提供有效的數字。'),
                 ],
             });
         if (number > 200)
@@ -52,7 +52,7 @@ export default class Volume extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('The volume can\'t be higher than 200.'),
+                        .setDescription('音量不能高於 200。'),
                 ],
             });
         if (number < 0)
@@ -60,7 +60,7 @@ export default class Volume extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('The volume can\'t be lower than 0.'),
+                        .setDescription('音量不能低於 0。'),
                 ],
             });
         player.player.setGlobalVolume(number);
@@ -68,7 +68,7 @@ export default class Volume extends Command {
             embeds: [
                 embed
                     .setColor(this.client.color.main)
-                    .setDescription(`Set the volume to ${player.player.volume}`),
+                    .setDescription(`將音量設定為 ${player.player.volume}`),
             ],
         });
     }

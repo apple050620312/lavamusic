@@ -5,7 +5,7 @@ export default class Ping extends Command {
         super(client, {
             name: 'ping',
             description: {
-                content: 'Shows the bot\'s ping',
+                content: '顯示機器人的延遲',
                 examples: ['ping'],
                 usage: 'ping',
             },
@@ -29,28 +29,28 @@ export default class Ping extends Command {
         });
     }
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const msg = await ctx.sendDeferMessage('Pinging...');
+        const msg = await ctx.sendDeferMessage('正在測量...');
 
         const embed = client
             .embed()
-            .setAuthor({ name: 'Pong', iconURL: this.client.user.displayAvatarURL() })
+            .setAuthor({ name: '🏓Pong!', iconURL: this.client.user.displayAvatarURL() })
             .setColor(this.client.color.main)
             .addFields([
                 {
-                    name: 'Bot Latency',
+                    name: '機器人延遲',
                     value: `\`\`\`ini\n[ ${
                         msg.createdTimestamp - ctx.createdTimestamp
-                    }ms ]\n\`\`\``,
+                    } 毫秒 ]\n\`\`\``,
                     inline: true,
                 },
                 {
-                    name: 'API Latency',
-                    value: `\`\`\`ini\n[ ${Math.round(ctx.client.ws.ping)}ms ]\n\`\`\``,
+                    name: 'API 延遲',
+                    value: `\`\`\`ini\n[ ${Math.round(ctx.client.ws.ping)} 毫秒 ]\n\`\`\``,
                     inline: true,
                 },
             ])
             .setFooter({
-                text: `Requested by ${ctx.author.tag}`,
+                text: `請求者：${ctx.author.tag}`,
                 iconURL: ctx.author.avatarURL({}),
             })
             .setTimestamp();

@@ -7,7 +7,7 @@ export default class Play extends Command {
         super(client, {
             name: 'play',
             description: {
-                content: 'Plays a song from YouTube or Spotify',
+                content: '播放 YouTube 或 Spotify 中的歌曲',
                 examples: [
                     'play https://www.youtube.com/watch?v=QH2-TGUlwu4',
                     'play https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg',
@@ -33,7 +33,7 @@ export default class Play extends Command {
             options: [
                 {
                     name: 'song',
-                    description: 'The song you want to play',
+                    description: '你想播放的歌曲',
                     type: 3,
                     required: true,
                     autocomplete: true,
@@ -55,7 +55,7 @@ export default class Play extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription('There was an error while searching.'),
+                            .setDescription('搜尋時出了錯誤。'),
                     ],
                 });
                 break;
@@ -64,7 +64,7 @@ export default class Play extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription('There were no results found.'),
+                            .setDescription('沒有找到結果。'),
                     ],
                 });
                 break;
@@ -76,7 +76,7 @@ export default class Play extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                    `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                 ),
                         ],
                     });
@@ -87,7 +87,7 @@ export default class Play extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added [${res.data.info.title}](${res.data.info.uri}) to the queue.`
+                                `已將 [${res.data.info.title}](${res.data.info.uri}) 加入隊列。`
                             ),
                     ],
                 });
@@ -100,7 +100,7 @@ export default class Play extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    `The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`
+                                    `播放清單太長。最大長度為 ${client.config.maxPlaylistSize} 首歌曲。`
                                 ),
                         ],
                     });
@@ -112,7 +112,7 @@ export default class Play extends Command {
                                 embed
                                     .setColor(this.client.color.red)
                                     .setDescription(
-                                        `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                        `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                     ),
                             ],
                         });
@@ -123,7 +123,7 @@ export default class Play extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.main)
-                            .setDescription(`Added ${res.data.tracks.length} songs to the queue.`),
+                            .setDescription(`將 ${res.data.tracks.length} 首歌曲加入隊列。`),
                     ],
                 });
                 break;
@@ -136,7 +136,7 @@ export default class Play extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                    `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                 ),
                         ],
                     });
@@ -147,7 +147,7 @@ export default class Play extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
+                                `將 [${res.data[0].info.title}](${res.data[0].info.uri}) 加入隊列。`
                             ),
                     ],
                 });

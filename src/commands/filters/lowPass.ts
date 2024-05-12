@@ -5,7 +5,7 @@ export default class lowPass extends Command {
         super(client, {
             name: 'lowpass',
             description: {
-                content: 'on/off lowpass filter',
+                content: '開啟/關閉低通濾波器',
                 examples: ['lowpass'],
                 usage: 'lowpass <number>',
             },
@@ -36,7 +36,7 @@ export default class lowPass extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Lowpass filter has been disabled',
+                        description: '低通濾波器已停用',
                         color: client.color.main,
                     },
                 ],
@@ -47,7 +47,7 @@ export default class lowPass extends Command {
             ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Lowpass filter has been enabled',
+                        description: '低通濾波器已啟用',
                         color: client.color.main,
                     },
                 ],

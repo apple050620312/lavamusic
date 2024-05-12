@@ -8,7 +8,7 @@ export default class Info extends Command {
         super(client, {
             name: 'info',
             description: {
-                content: 'Information about the bot',
+                content: '有關機器人的資訊',
                 examples: ['info'],
                 usage: 'info',
             },
@@ -48,18 +48,18 @@ export default class Info extends Command {
         const botUsers = client.users.cache.size;
         const botCommands = client.commands.size;
 
-        const botInfo = `Bot Information:
-- **Operating System**: ${osType} ${osRelease}
-- **Uptime**: ${client.utils.formatTime(osUptime)}
-- **Hostname**: ${osHostname}
-- **CPU Architecture**: ${cpuArch} (${cpuCores} cores)
-- **Memory Usage**: ${client.utils.formatBytes(usedMem)} / ${client.utils.formatBytes(
+        const botInfo = `機器人資訊：
+- **作業系統**: ${osType} ${osRelease}
+- **上線時間**: ${client.utils.formatTime(osUptime)}
+- **主機名稱**: ${osHostname}
+- **CPU 架構**: ${cpuArch} (${cpuCores} 核)
+- **記憶體用量**: ${client.utils.formatBytes(usedMem)} / ${client.utils.formatBytes(
             totalMem
         )} (${Math.round((usedMem / totalMem) * 100)}%)
-- **Node Version**: ${nodeVersion}
-- **Discord Version**: ${discordJsVersion}
-- **Connected to** ${botGuilds} guilds, ${botChannels} channels, and ${botUsers} users
-- **Total Commands**: ${botCommands}
+- **Node.js 版本**: ${nodeVersion}
+- **Discord.js 版本**: ${discordJsVersion}
+- **已連接** ${botGuilds} 個伺服器、${botChannels} 個頻道和 ${botUsers} 個用戶
+- **總指令數**: ${botCommands}
   `;
 
         const embed = this.client.embed();

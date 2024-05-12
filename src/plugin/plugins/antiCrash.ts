@@ -7,17 +7,17 @@ const antiCrash: BotPlugin = {
     author: 'Blacky',
     initialize: (client: Lavamusic) => {
         process.on('unhandledRejection', (reason, promise) => {
-            client.logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+            client.logger.error('未處理的拒絕：', promise, 'reason:', reason);
         });
         process.on('uncaughtException', err => {
-            client.logger.error('Uncaught Exception thrown:', err);
+            client.logger.error('拋出未捕獲的例外：', err);
         });
 
         const handleExit = async (): Promise<void> => {
             if (client) {
-                client.logger.star('Disconnecting from Discord...');
+                client.logger.star('正在斷開與 Discord 的連線...');
                 await client.destroy();
-                client.logger.success('Successfully disconnected from Discord!');
+                client.logger.success('已成功斷開與 Discord 的連線！');
                 process.exit();
             }
         };

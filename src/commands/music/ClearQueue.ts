@@ -5,7 +5,7 @@ export default class ClearQueue extends Command {
         super(client, {
             name: 'clearqueue',
             description: {
-                content: 'Clears the queue',
+                content: '清除隊列',
                 examples: ['clearqueue'],
                 usage: 'clearqueue',
             },
@@ -36,7 +36,7 @@ export default class ClearQueue extends Command {
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription('There are no songs in the queue.'),
+                        .setDescription('隊列中沒有歌曲。'),
                 ],
             });
         player.queue = [];

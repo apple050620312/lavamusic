@@ -7,7 +7,7 @@ export default class Create extends Command {
         super(client, {
             name: 'create',
             description: {
-                content: 'Creates a playlist',
+                content: '建立播放清單',
                 examples: ['create <name>'],
                 usage: 'create <name>',
             },
@@ -30,7 +30,7 @@ export default class Create extends Command {
             options: [
                 {
                     name: 'name',
-                    description: 'The name of the playlist',
+                    description: '播放清單的名稱',
                     type: ApplicationCommandOptionType.String,
                     required: true,
                 },
@@ -43,7 +43,7 @@ export default class Create extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Playlist names can only be 50 characters long',
+                        description: '播放清單名稱的長度只能是 50 個字符',
                         color: client.color.red,
                     },
                 ],
@@ -53,7 +53,7 @@ export default class Create extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'A playlist with that name already exists',
+                        description: '同名的播放清單已存在',
                         color: client.color.main,
                     },
                 ],
@@ -62,7 +62,7 @@ export default class Create extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Playlist **${name}** has been created`,
+                    description: `播放清單 **${name}** 已創建`,
                     color: client.color.main,
                 },
             ],

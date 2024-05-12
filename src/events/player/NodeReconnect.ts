@@ -8,7 +8,7 @@ export default class NodeReconnect extends Event {
         });
     }
     public async run(node: string): Promise<void> {
-        this.client.logger.warn(`Node ${node} reconnected`);
-        BotLog.send(this.client, `Node ${node} reconnected`, 'warn');
+        this.client.logger.warn(`節點 ${node} 已重新連接`);
+        BotLog.send(this.client, `節點 ${node} 已重新連接`, 'warn');
     }
 }

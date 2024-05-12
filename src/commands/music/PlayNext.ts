@@ -7,7 +7,7 @@ export default class PlayNext extends Command {
         super(client, {
             name: 'playnext',
             description: {
-                content: 'Add the song to play next in queue',
+                content: '新增隊列中接下來要播放的歌曲',
                 examples: [
                     'playnext https://www.youtube.com/watch?v=QH2-TGUlwu4',
                     'playnext https://open.spotify.com/track/6WrI0LAC5M1Rw2MnX2ZvEg',
@@ -33,7 +33,7 @@ export default class PlayNext extends Command {
             options: [
                 {
                     name: 'song',
-                    description: 'The song you want to play',
+                    description: '你想播放的歌曲',
                     type: 3,
                     required: true,
                     autocomplete: true,
@@ -55,7 +55,7 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription('There was an error while searching.'),
+                            .setDescription('搜尋時出了錯誤。'),
                     ],
                 });
                 break;
@@ -64,7 +64,7 @@ export default class PlayNext extends Command {
                     embeds: [
                         embed
                             .setColor(this.client.color.red)
-                            .setDescription('There were no results found.'),
+                            .setDescription('沒有找到結果。'),
                     ],
                 });
                 break;
@@ -76,7 +76,7 @@ export default class PlayNext extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                    `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                 ),
                         ],
                     });
@@ -87,7 +87,7 @@ export default class PlayNext extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added [${res.data.info.title}](${res.data.info.uri}) to play next in the queue.`
+                                `新增了 [${res.data.info.title}](${res.data.info.uri}) 以在隊列中播放下一個。`
                             ),
                     ],
                 });
@@ -100,7 +100,7 @@ export default class PlayNext extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    `The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`
+                                    `播放清單太長。最大長度為 ${client.config.maxPlaylistSize} 首歌曲。`
                                 ),
                         ],
                     });
@@ -112,7 +112,7 @@ export default class PlayNext extends Command {
                                 embed
                                     .setColor(this.client.color.red)
                                     .setDescription(
-                                        `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                        `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                     ),
                             ],
                         });
@@ -124,7 +124,7 @@ export default class PlayNext extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added ${res.data.tracks.length} songs to play next in the queue.`
+                                `新增了隊列中接下來要播放的 ${res.data.tracks.length} 首歌曲。`
                             ),
                     ],
                 });
@@ -138,7 +138,7 @@ export default class PlayNext extends Command {
                             embed
                                 .setColor(this.client.color.red)
                                 .setDescription(
-                                    `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                    `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                 ),
                         ],
                     });
@@ -149,7 +149,7 @@ export default class PlayNext extends Command {
                         embed
                             .setColor(this.client.color.main)
                             .setDescription(
-                                `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to play next in the queue.`
+                                `新增了 [${res.data[0].info.title}](${res.data[0].info.uri}) 以在隊列中播放下一個。`
                             ),
                     ],
                 });

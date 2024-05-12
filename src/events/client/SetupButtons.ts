@@ -14,7 +14,7 @@ export default class SetupButtons extends Event {
         if (!interaction.member.voice.channel)
             return await buttonReply(
                 interaction,
-                `You are not connected to a voice channel to use this button.`,
+                `您需要連接到語音通道才能使用此按鈕。`,
                 this.client.color.red
             );
         if (
@@ -24,26 +24,26 @@ export default class SetupButtons extends Event {
         )
             return await buttonReply(
                 interaction,
-                `You are not connected to ${interaction.guild.me.voice.channel} to use this buttons.`,
+                `您需要連接到 ${interaction.guild.me.voice.channel} 來使用此按鈕。`,
                 this.client.color.red
             );
         const player = this.client.queue.get(interaction.guildId);
         if (!player)
             return await buttonReply(
                 interaction,
-                `There is no music playing in this server.`,
+                `此伺服器中沒有播放音樂。`,
                 this.client.color.red
             );
         if (!player.queue)
             return await buttonReply(
                 interaction,
-                `There is no music playing in this server.`,
+                `此伺服器中沒有播放音樂。`,
                 this.client.color.red
             );
         if (!player.current)
             return await buttonReply(
                 interaction,
-                `There is no music playing in this server.`,
+                `此伺服器中沒有播放音樂。`,
                 this.client.color.red
             );
         const data = await this.client.db.getSetup(interaction.guildId);
@@ -62,18 +62,18 @@ export default class SetupButtons extends Event {
 
         const embed = this.client
             .embed()
-            .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
+            .setAuthor({ name: `正在播放`, iconURL: iconUrl })
             .setColor(this.client.color.main)
             .setDescription(
-                `[${title}](${uri}) - ${player.current.info.isStream ? 'LIVE' : this.client.utils.formatTime(length)
-                } - Requested by ${player.current.info.requester}`
+                `[${title}](${uri}) - ${player.current.info.isStream ? '直播' : this.client.utils.formatTime(length)
+                } - 請求者：${player.current.info.requester}`
             )
             .setImage(icon);
         if (!interaction.isButton()) return;
         if (!(await checkDj(this.client, interaction))) {
             await buttonReply(
                 interaction,
-                `You need to have the DJ role to use this command.`,
+                `您需要擁有 DJ 身分組才能使用此指令。`,
                 this.client.color.red
             );
             return;
@@ -83,11 +83,11 @@ export default class SetupButtons extends Event {
                 case 'LOW_VOL_BUT': {
                     const vol = player.player.volume - 10;
                     player.player.setGlobalVolume(vol);
-                    await buttonReply(interaction, `Volume set to ${vol}%`, this.client.color.main);
+                    await buttonReply(interaction, `音量設定為 ${vol}%`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Volume: ${vol}%`,
+                                text: `音量：${vol}%`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -99,13 +99,13 @@ export default class SetupButtons extends Event {
                     player.player.setGlobalVolume(vol2);
                     await buttonReply(
                         interaction,
-                        `Volume set to ${vol2}%`,
+                        `音量設定為 ${vol2}%`,
                         this.client.color.main
                     );
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Volume: ${vol2}%`,
+                                text: `音量：${vol2}%`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -113,13 +113,13 @@ export default class SetupButtons extends Event {
                     break;
                 }
                 case 'PAUSE_BUT': {
-                    const name = player.player.paused ? `Resumed` : `Paused`;
+                    const name = player.player.paused ? `繼續` : `暫停`;
                     player.pause();
-                    await buttonReply(interaction, `${name} the music.`, this.client.color.main);
+                    await buttonReply(interaction, `已 ${name} 播放音樂。`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `${name} by ${interaction.member.displayName}`,
+                                text: `由 ${interaction.member.displayName} ${name}`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -130,15 +130,15 @@ export default class SetupButtons extends Event {
                     if (player.queue.length === 0)
                         return await buttonReply(
                             interaction,
-                            `There is no music to skip.`,
+                            `沒有可以跳過的音樂。`,
                             this.client.color.main
                         );
                     player.skip();
-                    await buttonReply(interaction, `Skipped the music.`, this.client.color.main);
+                    await buttonReply(interaction, `已跳過音樂。`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Skipped by ${interaction.member.displayName}`,
+                                text: `由 ${interaction.member.displayName} 跳過`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -146,15 +146,15 @@ export default class SetupButtons extends Event {
                     break;
                 case 'STOP_BUT':
                     player.stop();
-                    await buttonReply(interaction, `Stopped the music.`, this.client.color.main);
+                    await buttonReply(interaction, `停止了音樂。`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed
                                 .setFooter({
-                                    text: `Stopped by ${interaction.member.displayName}`,
+                                    text: `由 ${interaction.member.displayName} 停止`,
                                     iconURL: interaction.member.displayAvatarURL({}),
                                 })
-                                .setDescription(`Nothing playing right now`)
+                                .setDescription(`現在沒有播放任何內容`)
                                 .setImage(this.client.config.links.img)
                                 .setAuthor({
                                     name: this.client.user.username,
@@ -166,24 +166,24 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 case 'LOOP_BUT': {
-                    const random = ['off', 'queue', 'repeat'];
+                    const random = ['關閉', '隊列', '單曲'];
                     const loop = random[Math.floor(Math.random() * random.length)];
                     if (player.loop === loop)
                         return await buttonReply(
                             interaction,
-                            `Loop is already ${player.loop}.`,
+                            `循環模式已經是 ${player.loop}。`,
                             this.client.color.main
                         );
                     player.setLoop(loop);
                     await buttonReply(
                         interaction,
-                        `Loop set to ${player.loop}.`,
+                        `循環模式設定為 ${player.loop}。`,
                         this.client.color.main
                     );
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Loop set to ${player.loop} by ${interaction.member.displayName}`,
+                                text: `循環模式由 ${interaction.member.displayName} 設定為 ${player.loop}`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -194,7 +194,7 @@ export default class SetupButtons extends Event {
                     player.setShuffle();
                     await buttonReply(
                         interaction,
-                        `Shuffled the queue.`,
+                        `已打亂隊列。`,
                         this.client.color.main
                     );
                     break;
@@ -202,19 +202,19 @@ export default class SetupButtons extends Event {
                     if (!player.previous)
                         return await buttonReply(
                             interaction,
-                            `There is no previous track.`,
+                            `沒有上一首曲目。`,
                             this.client.color.main
                         );
                     player.previousTrack();
                     await buttonReply(
                         interaction,
-                        `Playing the previous track.`,
+                        `播放上一首曲目。`,
                         this.client.color.main
                     );
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Playing the previous track by ${interaction.member.displayName}`,
+                                text: `由 ${interaction.member.displayName} 上一首`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -225,15 +225,15 @@ export default class SetupButtons extends Event {
                     if (time < 0)
                         return await buttonReply(
                             interaction,
-                            `You cannot rewind the music more than the length of the song.`,
+                            `倒帶的長度不能超過歌曲的長度。`,
                             this.client.color.main
                         );
                     player.seek(time);
-                    await buttonReply(interaction, `Rewinded the music.`, this.client.color.main);
+                    await buttonReply(interaction, `已倒帶歌曲。`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Rewinded by ${interaction.member.displayName}`,
+                                text: `由 ${interaction.member.displayName} 倒帶`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -245,15 +245,15 @@ export default class SetupButtons extends Event {
                     if (time2 > player.current.info.length)
                         return await buttonReply(
                             interaction,
-                            `You cannot forward the music more than the length of the song.`,
+                            `快進的長度不能超過歌曲的長度。`,
                             this.client.color.main
                         );
                     player.seek(time2);
-                    await buttonReply(interaction, `Forwarded the music.`, this.client.color.main);
+                    await buttonReply(interaction, `已快進歌曲。`, this.client.color.main);
                     await message.edit({
                         embeds: [
                             embed.setFooter({
-                                text: `Forwarded by ${interaction.member.displayName}`,
+                                text: `由 ${interaction.member.displayName} 快進`,
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
@@ -263,7 +263,7 @@ export default class SetupButtons extends Event {
                 default:
                     await buttonReply(
                         interaction,
-                        `This button is not available.`,
+                        `此按鈕不可用。`,
                         this.client.color.main
                     );
                     break;

@@ -15,10 +15,10 @@ function neb(embed: EmbedBuilder, player: Dispatcher, client: Lavamusic): EmbedB
 
     let icon = player.current ? player.current.info.artworkUrl : client.config.links.img;
     return embed
-        .setAuthor({ name: 'Now Playing', iconURL: iconUrl })
+        .setAuthor({ name: '正在播放', iconURL: iconUrl })
         .setDescription(
-            `[${player.current.info.title}](${player.current.info.uri}) by ${player.current.info.author
-            } • \`[${client.utils.formatTime(player.current.info.length)}]\` - Requested by ${player.current.info.requester
+            `[${player.current.info.title}](${player.current.info.uri}) 由 ${player.current.info.author
+            } • \`[${client.utils.formatTime(player.current.info.length)}]\` - 請求者 ${player.current.info.requester
             }`
         )
         .setImage(icon)
@@ -52,7 +52,7 @@ async function setupStart(
                             embeds: [
                                 embed
                                     .setColor(client.color.red)
-                                    .setDescription('There was an error while searching.'),
+                                    .setDescription('搜尋時出了錯誤。'),
                             ],
                         })
                         .then(msg => {
@@ -67,7 +67,7 @@ async function setupStart(
                             embeds: [
                                 embed
                                     .setColor(client.color.red)
-                                    .setDescription('There were no results found.'),
+                                    .setDescription('沒有找到結果。'),
                             ],
                         })
                         .then(msg => {
@@ -86,7 +86,7 @@ async function setupStart(
                                     embed
                                         .setColor(client.color.red)
                                         .setDescription(
-                                            `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                            `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                         ),
                                 ],
                             })
@@ -105,7 +105,7 @@ async function setupStart(
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        `Added [${res.data.info.title}](${res.data.info.uri}) to the queue.`
+                                        `將 [${res.data.info.title}](${res.data.info.uri}) 加入隊列。`
                                     ),
                             ],
                         })
@@ -125,7 +125,7 @@ async function setupStart(
                                     embed
                                         .setColor(client.color.red)
                                         .setDescription(
-                                            `The playlist is too long. The maximum length is ${client.config.maxPlaylistSize} songs.`
+                                            `播放清單太長。最大長度為 ${client.config.maxPlaylistSize} 首歌曲。`
                                         ),
                                 ],
                             })
@@ -145,7 +145,7 @@ async function setupStart(
                                         embed
                                             .setColor(client.color.red)
                                             .setDescription(
-                                                `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                                `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                             ),
                                     ],
                                 })
@@ -165,7 +165,7 @@ async function setupStart(
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        `Added [${res.data.tracks.length}](${res.data.tracks[0].info.uri}) to the queue.`
+                                        `將 [${res.data.tracks.length}](${res.data.tracks[0].info.uri}) 加入隊列。`
                                     ),
                             ],
                         })
@@ -186,7 +186,7 @@ async function setupStart(
                                     embed
                                         .setColor(client.color.red)
                                         .setDescription(
-                                            `The queue is too long. The maximum length is ${client.config.maxQueueSize} songs.`
+                                            `隊列太長了。最大長度為 ${client.config.maxQueueSize} 首歌曲。`
                                         ),
                                 ],
                             })
@@ -205,7 +205,7 @@ async function setupStart(
                                 embed
                                     .setColor(client.color.main)
                                     .setDescription(
-                                        `Added [${res.data[0].info.title}](${res.data[0].info.uri}) to the queue.`
+                                        `將 [${res.data[0].info.title}](${res.data[0].info.uri}) 加入隊列。`
                                     ),
                             ],
                         })
@@ -242,12 +242,12 @@ async function trackStart(
         if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
         const embed = client
             .embed()
-            .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
+            .setAuthor({ name: `正在播放`, iconURL: iconUrl })
             .setColor(client.color.main)
             .setDescription(
                 `[${track.info.title}](${track.info.uri}) - \`[${client.utils.formatTime(
                     track.info.length
-                )}]\` - Requested by ${track.info.requester}`
+                )}]\` - 請求者：${track.info.requester}`
             )
             .setImage(icon);
         await m
@@ -267,11 +267,11 @@ async function trackStart(
         const embed = client
             .embed()
             .setColor(client.color.main)
-            .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
+            .setAuthor({ name: `正在播放`, iconURL: iconUrl })
             .setDescription(
                 `[${track.info.title}](${track.info.uri}) - \`[${client.utils.formatTime(
                     track.info.length
-                )}]\` - Requested by ${track.info.requester}`
+                )}]\` - 請求者：${track.info.requester}`
             )
             .setImage(icon);
         await channel
@@ -310,13 +310,13 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
             if (!iconUrl) iconUrl = client.user.displayAvatarURL({ extension: 'png' });
             const embed = client
                 .embed()
-                .setAuthor({ name: `Now Playing`, iconURL: iconUrl })
+                .setAuthor({ name: `正在播放`, iconURL: iconUrl })
                 .setColor(client.color.main)
                 .setDescription(
                     `[${player.current.info.title}](${player.current.info.uri
                     }) - \`[${client.utils.formatTime(
                         player.current.info.length
-                    )}]\` - Requested by ${player.current.info.requester}`
+                    )}]\` - 請求者：${player.current.info.requester}`
                 )
                 .setImage(player.current.info.artworkUrl);
             await m
@@ -338,7 +338,7 @@ async function updateSetup(client: Lavamusic, guild: any): Promise<void> {
                     name: client.user.username,
                     iconURL: client.user.displayAvatarURL({ extension: 'png' }),
                 })
-                .setDescription(`Nothing playing right now`)
+                .setDescription(`現在沒有播放任何內容`)
                 .setImage(client.config.links.img);
             await m
                 .edit({

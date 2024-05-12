@@ -7,7 +7,7 @@ export default class Pitch extends Command {
         super(client, {
             name: 'pitch',
             description: {
-                content: 'on/off the pitch filter',
+                content: '開啟/關閉音高濾波器',
                 examples: ['pitch 1'],
                 usage: 'pitch <number>',
             },
@@ -30,7 +30,7 @@ export default class Pitch extends Command {
             options: [
                 {
                     name: 'number',
-                    description: 'The number you want to set the pitch to',
+                    description: '您想要設定音高的數字',
                     type: ApplicationCommandOptionType.Integer,
                     required: true,
                 },
@@ -45,7 +45,7 @@ export default class Pitch extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a valid number',
+                        description: '請提供有效數字',
                         color: client.color.red,
                     },
                 ],
@@ -54,7 +54,7 @@ export default class Pitch extends Command {
             return await ctx.sendMessage({
                 embeds: [
                     {
-                        description: 'Please provide a number between 1 and 5',
+                        description: '請提供 1 到 5 之間的數字',
                         color: client.color.red,
                     },
                 ],
@@ -64,7 +64,7 @@ export default class Pitch extends Command {
         return await ctx.sendMessage({
             embeds: [
                 {
-                    description: `Pitch has been set to ${number}`,
+                    description: `音高已設定為 ${number}`,
                     color: client.color.main,
                 },
             ],
