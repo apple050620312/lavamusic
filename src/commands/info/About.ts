@@ -33,7 +33,7 @@ export default class About extends Command {
 
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const inviteButton = new ButtonBuilder()
-            .setLabel('邀請機器人')
+            .setLabel('邀請岩漿音樂機器人')
             .setStyle(ButtonStyle.Link)
             .setURL(
                 `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=-1&scope=bot%20applications.commands`
