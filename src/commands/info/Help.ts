@@ -89,8 +89,8 @@ export default class Help extends Command {
 **冷卻：** ${command.cooldown} 秒
 **權限：** ${
                 command.permissions.user.length > 0
-                        ? command.permissions.user.map(perm => `\`${perm}\``).join(', ')
-                        : 'None'
+                    ? command.permissions.user.map(perm => `\`${perm}\``).join(', ')
+                    : 'None'
             }
 **機器人權限：** ${command.permissions.client.map(perm => `\`${perm}\``).join(', ')}
 **僅限開發人員：** ${command.permissions.dev ? '是' : '否'}
