@@ -1,5 +1,14 @@
-
-import { Botchannel, Dj, Guild, Playlist, PrismaClient, Role, Setup, Song, Stay, } from '@prisma/client';
+import {
+    Botchannel,
+    Dj,
+    Guild,
+    Playlist,
+    PrismaClient,
+    Role,
+    Setup,
+    Song,
+    Stay,
+} from '@prisma/client';
 
 import config from '../config.js';
 
@@ -11,21 +20,22 @@ export default class ServerData {
     }
 
     public async get(guildId: string): Promise<Guild | null> {
-        let data = await this.prisma.guild.findUnique({
-            where: {
+        return (
+            (await this.prisma.guild.findUnique({
+                where: {
+                    guildId,
+                },
+            })) ?? (await this.createGuild(guildId))
+        );
+    }
+
+    private async createGuild(guildId: string): Promise<Guild> {
+        return await this.prisma.guild.create({
+            data: {
                 guildId,
+                prefix: config.prefix,
             },
         });
-        if (!data) {
-            data = await this.prisma.guild.create({
-                data: {
-                    guildId,
-                    prefix: config.prefix,
-                },
-            });
-            return data;
-        }
-        return data;
     }
 
     public async setPrefix(guildId: string, prefix: string): Promise<void> {
@@ -112,15 +122,8 @@ export default class ServerData {
     }
 
     public async addRole(guildId: string, roleId: string): Promise<void> {
-        await this.prisma.role.upsert({
-            where: {
-                guildId_roleId: {
-                    guildId,
-                    roleId,
-                },
-            },
-            update: {},
-            create: {
+        await this.prisma.role.create({
+            data: {
                 guildId,
                 roleId,
             },
@@ -128,12 +131,10 @@ export default class ServerData {
     }
 
     public async removeRole(guildId: string, roleId: string): Promise<void> {
-        await this.prisma.role.delete({
+        await this.prisma.role.deleteMany({
             where: {
-                guildId_roleId: {
-                    guildId,
-                    roleId,
-                },
+                guildId,
+                roleId,
             },
         });
     }
@@ -202,7 +203,7 @@ export default class ServerData {
         });
     }
 
-    public async getPLaylist(userId: string, name: string): Promise<Playlist | null> {
+    public async getPlaylist(userId: string, name: string): Promise<Playlist | null> {
         return await this.prisma.playlist.findUnique({
             where: {
                 userId_name: {
@@ -234,7 +235,7 @@ export default class ServerData {
     }
 
     public async addSong(userId: string, name: string, song: string): Promise<void> {
-        const playlist = await this.getPLaylist(userId, name);
+        const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
             await this.prisma.song.create({
                 data: {
@@ -249,7 +250,7 @@ export default class ServerData {
     }
 
     public async removeSong(userId: string, name: string, song: string): Promise<void> {
-        const playlist = await this.getPLaylist(userId, name);
+        const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
             await this.prisma.song.delete({
                 where: {
@@ -262,21 +263,20 @@ export default class ServerData {
         }
     }
 
-    public async getSong(userId: string, name: string): Promise<Song[]> {
-        const playlist = await this.getPLaylist(userId, name);
+    public async getSongs(userId: string, name: string): Promise<Song[]> {
+        const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
-            const songs = await this.prisma.song.findMany({
+            return await this.prisma.song.findMany({
                 where: {
                     playlistId: playlist.id,
                 },
             });
-            return songs;
         }
         return [];
     }
 
     public async clearPlaylist(userId: string, name: string): Promise<void> {
-        const playlist = await this.getPLaylist(userId, name);
+        const playlist = await this.getPlaylist(userId, name);
         if (playlist) {
             await this.prisma.song.deleteMany({
                 where: {
@@ -303,8 +303,12 @@ export default class ServerData {
     }
 }
 
-
-
-
-
-
+/**
+ * Project: lavamusic
+ * user: Blacky
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

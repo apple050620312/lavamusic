@@ -14,7 +14,7 @@ export default class Search extends Command {
                 usage: 'search',
             },
             category: 'music',
-            aliases: ['search'],
+            aliases: ['sc'],
             cooldown: 3,
             args: true,
             player: {

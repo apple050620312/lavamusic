@@ -1,4 +1,5 @@
 import { Event, Lavamusic } from '../../structures/index.js';
+import { getButtons } from '../../utils/Buttons.js';
 import { buttonReply } from '../../utils/SetupSystem.js';
 import { checkDj } from '../player/TrackStart.js';
 
@@ -9,7 +10,7 @@ export default class SetupButtons extends Event {
         });
     }
     public async run(interaction: any): Promise<void> {
-        if (!interaction.replied) await interaction.deferReply().catch(() => { });
+        if (!interaction.replied) await interaction.deferReply().catch(() => {});
 
         if (!interaction.member.voice.channel)
             return await buttonReply(
@@ -20,7 +21,7 @@ export default class SetupButtons extends Event {
         if (
             interaction.guild.members.cache.get(this.client.user.id).voice.channel &&
             interaction.guild.members.cache.get(this.client.user.id).voice.channelId !==
-            interaction.member.voice.channelId
+                interaction.member.voice.channelId
         )
             return await buttonReply(
                 interaction,
@@ -65,7 +66,8 @@ export default class SetupButtons extends Event {
             .setAuthor({ name: `正在播放`, iconURL: iconUrl })
             .setColor(this.client.color.main)
             .setDescription(
-                `[${title}](${uri}) - ${player.current.info.isStream ? '直播' : this.client.utils.formatTime(length)
+                `[${title}](${uri}) - ${
+                    player.current.info.isStream ? '直播' : this.client.utils.formatTime(length)
                 } - 請求者：${player.current.info.requester}`
             )
             .setImage(icon);
@@ -123,6 +125,7 @@ export default class SetupButtons extends Event {
                                 iconURL: interaction.member.displayAvatarURL({}),
                             }),
                         ],
+                        components: getButtons(player),
                     });
                     break;
                 }
@@ -166,37 +169,40 @@ export default class SetupButtons extends Event {
                     });
                     break;
                 case 'LOOP_BUT': {
-                    const random = ['關閉', '隊列', '單曲'];
-                    const loop = random[Math.floor(Math.random() * random.length)];
-                    if (player.loop === loop)
-                        return await buttonReply(
+                    const loopOptions: Array<'off' | 'queue' | 'repeat'> = [
+                        '關閉',
+                        '隊列',
+                        '單曲',
+                    ];
+                    const newLoop = loopOptions[Math.floor(Math.random() * loopOptions.length)];
+
+                    if (player.loop === newLoop) {
+                        await buttonReply(
                             interaction,
                             `循環模式已經是 ${player.loop}。`,
                             this.client.color.main
                         );
-                    player.setLoop(loop);
-                    await buttonReply(
-                        interaction,
-                        `循環模式設定為 ${player.loop}。`,
-                        this.client.color.main
-                    );
-                    await message.edit({
-                        embeds: [
-                            embed.setFooter({
-                                text: `循環模式由 ${interaction.member.displayName} 設定為 ${player.loop}`,
-                                iconURL: interaction.member.displayAvatarURL({}),
-                            }),
-                        ],
-                    });
+                    } else {
+                        player.setLoop(newLoop);
+                        await buttonReply(
+                            interaction,
+                            `循環模式設定為 ${player.loop}.`,
+                            this.client.color.main
+                        );
+                        await message.edit({
+                            embeds: [
+                                embed.setFooter({
+                                    text: `循環模式由 ${player.loop} 設定為 ${interaction.member.displayName}`,
+                                    iconURL: interaction.member.displayAvatarURL({}),
+                                }),
+                            ],
+                        });
+                    }
                     break;
                 }
                 case 'SHUFFLE_BUT':
                     player.setShuffle();
-                    await buttonReply(
-                        interaction,
-                        `已打亂隊列。`,
-                        this.client.color.main
-                    );
+                    await buttonReply(interaction, `已打亂隊列。`, this.client.color.main);
                     break;
                 case 'PREV_BUT':
                     if (!player.previous)
@@ -271,3 +277,13 @@ export default class SetupButtons extends Event {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

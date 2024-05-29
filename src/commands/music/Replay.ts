@@ -1,56 +1,56 @@
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
-export default class Leave extends Command {
+export default class Replay extends Command {
     constructor(client: Lavamusic) {
         super(client, {
-            name: 'leave',
+            name: 'replay',
             description: {
-                content: '離開語音頻道',
-                examples: ['leave'],
-                usage: 'leave',
+                content: 'Replays the current track',
+                examples: ['replay'],
+                usage: 'replay',
             },
             category: 'music',
-            aliases: ['l'],
+            aliases: ['rp'],
             cooldown: 3,
             args: false,
             player: {
                 voice: true,
-                dj: true,
-                active: false,
+                dj: false,
+                active: true,
                 djPerm: null,
             },
             permissions: {
                 dev: false,
-                client: ['SendMessages', 'ViewChannel', 'EmbedLinks'],
+                client: ['SendMessages', 'ViewChannel'],
                 user: [],
             },
             slashCommand: true,
-            options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
         const embed = this.client.embed();
-        if (player) {
-            ctx.sendMessage({
-                embeds: [
-                    embed
-                        .setColor(this.client.color.main)
-                        .setDescription(
-                            `已離開 <#${player.node.manager.connections.get(ctx.guild.id).channelId}>`
-                        ),
-                ],
-            });
-            player.destroy();
-        } else {
-            ctx.sendMessage({
+
+        if (!player.current) {
+            return await ctx.sendMessage({
                 embeds: [
                     embed
                         .setColor(this.client.color.red)
-                        .setDescription(`我不在語音頻道`),
+                        .setDescription('There is no track currently playing'),
                 ],
             });
         }
+
+        player.seek(0);
+
+        return await ctx.sendMessage({
+            embeds: [
+                embed
+                    .setColor(this.client.color.main)
+                    .setDescription('Replaying the current track'),
+            ],
+        });
     }
 }
 

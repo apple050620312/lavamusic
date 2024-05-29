@@ -35,26 +35,23 @@ export default class Help extends Command {
             ],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context, args: string[]): Promise<any> {
         const embed = client.embed();
         const guild = await client.db.get(ctx.guild.id);
         const commands = this.client.commands.filter(cmd => cmd.category !== 'dev');
-        const categories = commands
-            .map(cmd => cmd.category)
-            .filter((value, index, self) => self.indexOf(value) === index);
+        const categories = [...new Set(commands.map(cmd => cmd.category))];
 
         if (!args[0]) {
-            const fildes = [];
-            categories.forEach(category => {
-                fildes.push({
-                    name: category,
-                    value: commands
-                        .filter(cmd => cmd.category === category)
-                        .map(cmd => `\`${cmd.name}\``)
-                        .join(', '),
-                    inline: false,
-                });
-            });
+            const fields = categories.map(category => ({
+                name: category,
+                value: commands
+                    .filter(cmd => cmd.category === category)
+                    .map(cmd => `\`${cmd.name}\``)
+                    .join(', '),
+                inline: false,
+            }));
+
             const helpEmbed = embed
                 .setColor(this.client.color.main)
                 .setTitle('幫助選單')
@@ -64,11 +61,13 @@ export default class Help extends Command {
                 .setFooter({
                     text: `使用 ${guild.prefix}help <command> 獲得有關指令的更多資訊`,
                 });
-            fildes.forEach(field => helpEmbed.addFields(field));
+
+            helpEmbed.addFields(...fields);
+
             ctx.sendMessage({ embeds: [helpEmbed] });
         } else {
             const command = this.client.commands.get(args[0].toLowerCase());
-            if (!command)
+            if (!command) {
                 return await ctx.sendMessage({
                     embeds: [
                         client
@@ -77,20 +76,22 @@ export default class Help extends Command {
                             .setDescription(`未找到指令 \`${args[0]}\``),
                     ],
                 });
-            const embed = this.client.embed();
+            }
+
             const helpEmbed = embed
                 .setColor(this.client.color.main)
-                .setTitle(`幫助選單 - ${command.name}`).setDescription(`**描述：** ${command.description.content
-                    }
+                .setTitle(`幫助選單 - ${command.name}`)
+                .setDescription(`**描述：** ${command.description.content}
 **用法：** ${guild.prefix}${command.description.usage}
 **範例：** ${command.description.examples.map(example => `${guild.prefix}${example}`).join(', ')}
 **別名：** ${command.aliases.map(alias => `\`${alias}\``).join(', ')}
 **類別：** ${command.category}
 **冷卻：** ${command.cooldown} 秒
-**權限：** ${command.permissions.user.length > 0
+**權限：** ${
+                command.permissions.user.length > 0
                         ? command.permissions.user.map(perm => `\`${perm}\``).join(', ')
                         : 'None'
-                    }
+            }
 **機器人權限：** ${command.permissions.client.map(perm => `\`${perm}\``).join(', ')}
 **僅限開發人員：** ${command.permissions.dev ? '是' : '否'}
 **斜線指令：** ${command.slashCommand ? '是' : '否'}
@@ -99,6 +100,7 @@ export default class Help extends Command {
 **DJ:** ${command.player.dj ? '是' : '否'}
 **DJ 權限：** ${command.player.djPerm ? command.player.djPerm : 'None'}
 **Voice:** ${command.player.voice ? '是' : '否'}`);
+
             ctx.sendMessage({ embeds: [helpEmbed] });
         }
     }

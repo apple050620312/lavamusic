@@ -7,8 +7,21 @@ export default class NodeDisconnect extends Event {
             name: 'nodeDisconnect',
         });
     }
+
     public async run(node: string, count: number): Promise<void> {
-        this.client.logger.warn(`節點 ${node} 斷開連接 ${count} 次`);
-        BotLog.send(this.client, `節點 ${node} 斷開連接 ${count} 次`, 'warn');
+        const message = `節點 ${node} 斷開連接 ${count} 次`;
+
+        this.client.logger.warn(message);
+        BotLog.send(this.client, message, 'warn');
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

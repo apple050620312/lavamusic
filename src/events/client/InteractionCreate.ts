@@ -18,47 +18,56 @@ export default class InteractionCreate extends Event {
         });
     }
     public async run(interaction: CommandInteraction | AutocompleteInteraction): Promise<any> {
-        if (
-            interaction instanceof CommandInteraction &&
-            interaction.type === InteractionType.ApplicationCommand
-        ) {
-             const setup = await this.client.db.getSetup(interaction.guildId);
-                    if (
-                        setup &&
-                        interaction.channelId === setup.textId 
-                    ) { 
-return interaction.reply({ content: `You can't use commands in setup channel.` , ephemeral: true})
-                    }
+        if (interaction instanceof CommandInteraction && interaction.isCommand()) {
+            const setup = await this.client.db.getSetup(interaction.guildId);
+            if (setup && interaction.channelId === setup.textId) {
+                return await interaction.reply({
+                    content: `You can't use commands in setup channel.`,
+                    ephemeral: true,
+                });
+            }
             const { commandName } = interaction;
-            await this.client.db.get(interaction.guildId); // get or create guild data
-            const command = this.client.commands.get(interaction.commandName);
+            await this.client.db.get(interaction.guildId);
+            const command = this.client.commands.get(commandName);
             if (!command) return;
             const ctx = new Context(interaction as any, interaction.options.data as any);
             ctx.setArgs(interaction.options.data as any);
             if (
                 !interaction.inGuild() ||
                 !interaction.channel
-                    .permissionsFor(interaction.guild.members.me)
+                    .permissionsFor(interaction.guild.members.resolve(this.client.user))
                     .has(PermissionFlagsBits.ViewChannel)
             )
                 return;
 
-            if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) {
+            if (
+                !interaction.guild.members
+                    .resolve(this.client.user)
+                    .permissions.has(PermissionFlagsBits.SendMessages)
+            ) {
                 return await (interaction.member as GuildMember)
                     .send({
                         content: `我在 \`${interaction.guild.name}\` 中沒有 **\`SendMessage\`** 權限\n頻道：<#${interaction.channelId}>`,
                     })
-                    .catch(() => { });
+                    .catch(() => {});
             }
 
-            if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks))
+            if (
+                !interaction.guild.members
+                    .resolve(this.client.user)
+                    .permissions.has(PermissionFlagsBits.EmbedLinks)
+            )
                 return await interaction.reply({
                     content: '我沒有 **`EmbedLinks`** 權限。',
                 });
 
             if (command.permissions) {
                 if (command.permissions.client) {
-                    if (!interaction.guild.members.me.permissions.has(command.permissions.client))
+                    if (
+                        !interaction.guild.members
+                            .resolve(this.client.user)
+                            .permissions.has(command.permissions.client)
+                    )
                         return await interaction.reply({
                             content: '我沒有足夠的權限來執行此指令。',
                         });
@@ -93,46 +102,47 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                             content: `您必須連接到語音頻道才能使用此 “${command.name}” 指令。`,
                         });
 
-                    if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.Speak))
+                    if (
+                        !interaction.guild.members
+                            .resolve(this.client.user)
+                            .permissions.has(PermissionFlagsBits.Speak)
+                    )
                         return await interaction.reply({
                             content: `我沒有 “連接” 權限來執行此 “${command.name}” 指令。`,
                         });
 
-                    if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.Speak))
+                    if (
+                        !interaction.guild.members
+                            .resolve(this.client.user)
+                            .permissions.has(PermissionFlagsBits.Speak)
+                    )
                         return await interaction.reply({
                             content: `我沒有 “說話” 權限來執行此 “${command.name}” 指令。`,
                         });
 
                     if (
                         (interaction.member as GuildMember).voice.channel.type ===
-                        ChannelType.GuildStageVoice &&
-                        !interaction.guild.members.me.permissions.has(
-                            PermissionFlagsBits.RequestToSpeak
-                        )
+                            ChannelType.GuildStageVoice &&
+                        !interaction.guild.members
+                            .resolve(this.client.user)
+                            .permissions.has(PermissionFlagsBits.RequestToSpeak)
                     )
                         return await interaction.reply({
                             content: `我沒有 “請求發言” 權限來執行此 “${command.name}” 指令。`,
                         });
-                    if (interaction.guild.members.me.voice.channel) {
+                    if (interaction.guild.members.resolve(this.client.user).voice.channel) {
                         if (
-                            interaction.guild.members.me.voice.channelId !==
+                            interaction.guild.members.resolve(this.client.user).voice.channelId !==
                             (interaction.member as GuildMember).voice.channelId
                         )
                             return await interaction.reply({
-                                content: `您未連接到 <#${interaction.guild.members.me.voice.channel.id}> 來使用此 \`${command.name}\` 指令。`,
+                                content: `您未連接到 <#${interaction.guild.members.resolve(this.client.user).voice.channel.id}> 來使用此 \`${command.name}\` 指令。`,
                             });
                     }
                 }
                 if (command.player.active) {
-                    if (!this.client.queue.get(interaction.guildId))
-                        return await interaction.reply({
-                            content: '現在沒有播放任何內容。',
-                        });
-                    if (!this.client.queue.get(interaction.guildId).queue)
-                        return await interaction.reply({
-                            content: '現在沒有播放任何內容。',
-                        });
-                    if (!this.client.queue.get(interaction.guildId).current)
+                    const queue = this.client.queue.get(interaction.guildId);
+                    if (!queue || !queue.queue || !queue.current)
                         return await interaction.reply({
                             content: '現在沒有播放任何內容。',
                         });
@@ -202,10 +212,12 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                 await command.run(this.client, ctx, ctx.args);
             } catch (error) {
                 this.client.logger.error(error);
-                await interaction.reply({ content: `發生錯誤：\`${error}\`` });
+                await interaction.reply({
+                    content: `發生錯誤：\`${error}\``,
+                });
             }
         } else if (interaction.type == InteractionType.ApplicationCommandAutocomplete) {
-            if ((interaction.commandName == 'play') || (interaction.commandName == 'playnext')) {
+            if (interaction.commandName == 'play' || interaction.commandName == 'playnext') {
                 const song = interaction.options.getString('song');
                 const res = await this.client.queue.search(song);
                 let songs = [];
@@ -223,7 +235,7 @@ return interaction.reply({ content: `You can't use commands in setup channel.` ,
                         break;
                 }
 
-                return await interaction.respond(songs).catch(() => { });
+                return await interaction.respond(songs).catch(() => {});
             }
         }
     }

@@ -64,7 +64,8 @@ export default class Prefix extends Command {
             case 'set':
                 if (!pre) {
                     embed.setDescription(
-                        `此伺服器的前綴是 \`${guild ? guild.prefix : client.config.prefix
+                        `此伺服器的前綴是 \`${
+                            guild ? guild.prefix : client.config.prefix
                         }\``
                     );
                     return await ctx.sendMessage({ embeds: [embed] });

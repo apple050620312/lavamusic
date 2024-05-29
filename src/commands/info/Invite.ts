@@ -30,24 +30,15 @@ export default class Invite extends Command {
             options: [],
         });
     }
-    public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const clientId = process.env.CLIENT_ID;
-        if (!clientId) {
-            console.error(
-                '在環境變數中找不到客戶端 ID，無法產生邀請連結。'
-            );
-            return await ctx.sendMessage(
-                '抱歉，我的邀請連結目前不可用。請告訴機器人開發人員檢查他們的控制台。'
-            );
-        }
 
+    public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const embed = this.client.embed();
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setLabel('邀請我')
                 .setStyle(ButtonStyle.Link)
                 .setURL(
-                    `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=-1&scope=bot%20applications.commands`
+                    `https://discord.com/api/oauth2/authorize?client_id=${client.config.clientId}&permissions=-1&scope=bot%20applications.commands`
                 ),
             new ButtonBuilder()
                 .setLabel('Coffee Host')
@@ -67,3 +58,13 @@ export default class Invite extends Command {
         });
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */

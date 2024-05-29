@@ -27,29 +27,51 @@ export default class LavaLink extends Command {
             slashCommand: true,
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
-        const embed = this.client.embed();
-        embed.setTitle('Lavalink 狀態');
-        embed.setColor(this.client.color.main);
-        embed.setThumbnail(this.client.user.avatarURL({}));
-        embed.setTimestamp();
+        const embed = this.client
+            .embed()
+            .setTitle('Lavalink 狀態')
+            .setColor(this.client.color.main)
+            .setThumbnail(this.client.user.avatarURL({}))
+            .setTimestamp();
+
         client.shoukaku.nodes.forEach(node => {
-            if (!node.stats) {
-                embed.addFields({
-                    name: '名稱：',
-                    value: `${node.name} (🔴)\n\`\`\`yaml\n播放器：0\n正在播放的播放器：0\n上線時間：0\n核心：0 核\n記憶體用量：0/0\n系統負載：0%\nLavalink 負載：0%\`\`\``,
-                });
-                return;
-            }
-            try {
-                embed.addFields({
-                    name: '名稱：',
-                    value: `${node.name} (${node.stats ? '🟢' : '🔴'})\n\`\`\`yaml\n播放器：${node.stats.players}\n正在播放的播放器：${node.stats.playingPlayers}\n上線時間：${client.utils.formatTime(node.stats.uptime)}\n核心：${node.stats.cpu.cores} 核\n記憶體用量：${client.utils.formatBytes(node.stats.memory.used)}/${client.utils.formatBytes(node.stats.memory.reservable)}\n系統負載：${(Math.round(node.stats.cpu.systemLoad * 100) / 100).toFixed(2)}%\nLavalink 負載：${(Math.round(node.stats.cpu.lavalinkLoad * 100) / 100).toFixed(2)}%\`\`\``,
-                });
-            } catch (e) {
-                console.log(e);
-            }
+            const statusEmoji = node.stats ? '🟢' : '🔴';
+            const stats = node.stats || {
+                players: 0,
+                playingPlayers: 0,
+                uptime: 0,
+                cpu: { cores: 0, systemLoad: 0, lavalinkLoad: 0 },
+                memory: { used: 0, reservable: 0 },
+            };
+
+            const formattedStats = `\`\`\`yaml
+播放器：${stats.players}
+正在播放的播放器：${stats.playingPlayers}
+上線時間：${client.utils.formatTime(stats.uptime)}
+核心：${stats.cpu.cores} 核
+記憶體用量：${client.utils.formatBytes(stats.memory.used)} / ${client.utils.formatBytes(stats.memory.reservable)}
+系統負載：${(stats.cpu.systemLoad * 100).toFixed(2)}%
+Lavalink 負載：${(stats.cpu.lavalinkLoad * 100).toFixed(2)}%
+\`\`\``;
+
+            embed.addFields({
+                name: `名稱：${node.name} (${statusEmoji})`,
+                value: formattedStats,
+            });
         });
+
         return await ctx.sendMessage({ embeds: [embed] });
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */
