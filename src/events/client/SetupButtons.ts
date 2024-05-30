@@ -170,9 +170,9 @@ export default class SetupButtons extends Event {
                     break;
                 case 'LOOP_BUT': {
                     const loopOptions: Array<'off' | 'queue' | 'repeat'> = [
-                        '關閉',
-                        '隊列',
-                        '單曲',
+                        'off',
+                        'queue',
+                        'repeat',
                     ];
                     const newLoop = loopOptions[Math.floor(Math.random() * loopOptions.length)];
 
