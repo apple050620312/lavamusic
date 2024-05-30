@@ -1,5 +1,3 @@
-import { ApplicationCommandOptionType } from 'discord.js';
-
 import { Command, Context, Lavamusic } from '../../structures/index.js';
 
 export default class Dj extends Command {
@@ -31,12 +29,12 @@ export default class Dj extends Command {
                 {
                     name: 'add',
                     description: '您要新增的 DJ 身分組',
-                    type: ApplicationCommandOptionType.Subcommand,
+                    type: 1,
                     options: [
                         {
                             name: 'role',
                             description: '您要新增的 DJ 身分組',
-                            type: ApplicationCommandOptionType.Role,
+                            type: 8,
                             required: true,
                         },
                     ],
@@ -44,12 +42,12 @@ export default class Dj extends Command {
                 {
                     name: 'remove',
                     description: '您要刪除的 DJ 身分組',
-                    type: ApplicationCommandOptionType.Subcommand,
+                    type: 1,
                     options: [
                         {
                             name: 'role',
                             description: '您要刪除的 DJ 身分組',
-                            type: ApplicationCommandOptionType.Role,
+                            type: 8,
                             required: true,
                         },
                     ],
@@ -57,12 +55,12 @@ export default class Dj extends Command {
                 {
                     name: 'clear',
                     description: '清除所有 DJ 身分組',
-                    type: ApplicationCommandOptionType.Subcommand,
+                    type: 1,
                 },
                 {
                     name: 'toggle',
                     description: '切換 DJ 身分組',
-                    type: ApplicationCommandOptionType.Subcommand,
+                    type: 1,
                 },
             ],
         });
@@ -155,6 +153,7 @@ export default class Dj extends Command {
 /**
  * Project: lavamusic
  * Author: Appu
+ * Main Contributor: LucasB25
  * Company: Coders
  * Copyright (c) 2024. All rights reserved.
  * This code is the property of Coder and may not be reproduced or

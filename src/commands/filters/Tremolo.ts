@@ -10,7 +10,7 @@ export default class Tremolo extends Command {
                 usage: 'tremolo',
             },
             category: 'filters',
-            aliases: ['tremolo'],
+            aliases: ['tr'],
             cooldown: 3,
             args: false,
             player: {
@@ -28,13 +28,16 @@ export default class Tremolo extends Command {
             options: [],
         });
     }
+
     public async run(client: Lavamusic, ctx: Context): Promise<any> {
         const player = client.queue.get(ctx.guild.id);
 
-        if (player.filters.includes('tremolo')) {
+        const tremoloEnabled = player.filters.includes('tremolo');
+
+        if (tremoloEnabled) {
             player.player.setTremolo();
             player.filters.splice(player.filters.indexOf('tremolo'), 1);
-            ctx.sendMessage({
+            return await ctx.sendMessage({
                 embeds: [
                     {
                         description: '顫音濾波器已停用',
@@ -45,7 +48,7 @@ export default class Tremolo extends Command {
         } else {
             player.player.setTremolo({ depth: 0.75, frequency: 4 });
             player.filters.push('tremolo');
-            ctx.sendMessage({
+            return await ctx.sendMessage({
                 embeds: [
                     {
                         description: '顫音濾波器已啟用',
@@ -56,3 +59,14 @@ export default class Tremolo extends Command {
         }
     }
 }
+
+/**
+ * Project: lavamusic
+ * Author: Appu
+ * Main Contributor: LucasB25
+ * Company: Coders
+ * Copyright (c) 2024. All rights reserved.
+ * This code is the property of Coder and may not be reproduced or
+ * modified without permission. For more information, contact us at
+ * https://discord.gg/ns8CTk9J3e
+ */
